@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../../static/css/signup.css">
+    <link rel="stylesheet" type="text/css" href="/css/signup.css">
     <script>
         window.onload = function() {
             const container = document.querySelector('.container');
@@ -26,7 +26,7 @@
                 <h1>KU해</h1>
             </div>  
             <div class="form">
-                <form>
+                <form action="/login" method="post">
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username">
                     <label for="password">Password</label>
@@ -47,8 +47,8 @@
                 </form>
             </div>
             <div class="links">
-                <a href="/mainpage.html" id="mainpage">Home Page</a>
-                <a href="/login.html" id="signUp">Sign In</a>
+                <a href="/mainpage" id="mainpage">Home Page</a>
+                <a href="/login" id="signUp">Sign In</a>
             </div>
 
         </div>

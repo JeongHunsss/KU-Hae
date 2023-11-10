@@ -9,7 +9,7 @@ const config = require(__dirname + '/config/SessionConfig');
 
 const app = express();
 
-
+app.use(express.static(__dirname + '/static'));
 // 라우터 등록
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
