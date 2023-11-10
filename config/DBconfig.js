@@ -1,9 +1,9 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 // MySQL 연결 정보
 const connection = mysql.createConnection({
   host: 'localhost',      // 데이터베이스 호스트
-  user: 'root',           // 데이터베이스 사용자 이름
+  user: 'username',           // 데이터베이스 사용자 이름
   password: 'password',   // 데이터베이스 사용자 암호
   database: 'KU-Hae'  // 사용할 데이터베이스 이름
 });
