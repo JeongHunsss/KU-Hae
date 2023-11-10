@@ -1,0 +1,102 @@
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    background-color: rgb(255, 255, 255);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    width: 60%;
+    height: 60%;
+    padding: 20px;
+    display: flex;
+    position: relative;
+}
+
+.left-box {
+    width: 66%;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: blue;
+    background-size: cover;
+    background-position: center;
+}
+
+.right-box {
+    width: 50%;
+    padding: 50px;
+    position: relative;
+    transition: transform 0.5s;
+    transform: translateX(0%);
+}
+
+.right-panel-active .right-box {
+    transform: translateX(10%);
+}
+
+.logo {
+    text-align: center;
+}
+
+.logo h1 {
+    font-size: 36px;
+    color: #333;
+}
+
+.form {
+    margin-top: 20px;
+}
+
+.form label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+}
+
+.form input[type="text"],
+.form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form input[type="submit"] {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.form input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.links {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.links a {
+    text-decoration: none;
+    color: #007BFF;
+    margin: 0 10px;
+}
