@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../static/css/login.css">
+    <script>
+        window.onload = function () {
+            const container = document.querySelector('.container');
+            const signUpButton = document.querySelector('#signUp');
+            const signInButton = document.querySelector('#signIn');
+
+            signUpButton.addEventListener('click', () => {
+                container.classList.add('right-panel-active');
+            });
+
+            signInButton.addEventListener('click', () => {
+                container.classList.remove('right-panel-active');
+            });
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="left-box">
+            <img src="images/ku.png" alt="KU">
+        </div>
+        <div class="right-box">
+            <div class="logo">
+                <h1>KU해</h1>
+            </div>
+            <div class="form">
+                <form>
+                    <label for="username">UserID</label>
+                    <input type="text" id="username" name="username">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password">
+                    <input type="submit" value="Sign In">
+                </form>
+            </div>
+            <div class="links">
+                <a href="/mainpage.html">Home Page</a>
+                <a href="/signup.html" id="signUp">Sign up</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

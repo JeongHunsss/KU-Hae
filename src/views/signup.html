@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../../static/css/signup.css">
+    <script>
+        window.onload = function() {
+            const container = document.querySelector('.container');
+            const signUpButton = document.querySelector('#signUp');
+            const signInButton = document.querySelector('#signIn');
+
+            signUpButton.addEventListener('click', () => {
+                container.classList.add('right-panel-active');
+            });
+
+            signInButton.addEventListener('click', () => {
+                container.classList.remove('right-panel-active');
+            });
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="left-box">
+            <div class="logo">
+                <h1>KU해</h1>
+            </div>  
+            <div class="form">
+                <form>
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password">
+                    <label for="password-confirm">Confirm Password</label>
+                    <input type="password" id="password-confirm" name="password-confirm">
+                    <label for="email">Email</label>
+                    <div class="email-input">
+                        <input type="email" id="email" name="email">
+                        <button class="small-button">Send</button>
+                    </div>
+                    <label for="verification-code">Verification Code</label>
+                    <div class="verification-input">
+                        <input type="text" id="verification-code" name="verification-code">
+                        <button class="small-button">Verify</button>
+                    </div>
+                    <input type="submit" value="Sign Up">
+                </form>
+            </div>
+            <div class="links">
+                <a href="/mainpage.html" id="mainpage">Home Page</a>
+                <a href="/login.html" id="signUp">Sign In</a>
+            </div>
+
+        </div>
+        <div class="right-box">
+            
+        </div>
+    </div>
+</body>
+</html>
