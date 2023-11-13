@@ -16,6 +16,9 @@ app.set('views', __dirname + '/src/views'); // views 디렉토리 설정
 // 라우터 등록
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
+app.use('/', (req, res, next) => {
+  res.redirect('/main');
+});
 
 // 세션 미들웨어 설정
 app.use(session({
