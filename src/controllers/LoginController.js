@@ -4,20 +4,18 @@ exports.login = (req, res) => {
   const { username, password } = req.body;
 
   const user = new User();
-  // User 모델을 사용하여 데이터베이스 쿼리를 수행
 
   user.loginUser(username, password, (err, user) => {
     if (err) {
       console.error('로그인 오류:', err);
-      res.send('로그인 실패');
+      res.status(500).send('로그인 실패');
     } else if (user) {
-      // 사용자가 인증되면 세션에 사용자 정보 저장
       req.session.user = user.user_id;
       console.log("user: " + user);
       console.log("session: " + req.session.user);
-      res.send('로그인 성공');
+      res.redirect('/main'); // 로그인 성공 시 홈페이지로 리다이렉트
     } else {
-      res.send('로그인 실패');
+      res.status(401).json({ error: '아이디 또는 비밀번호가 틀립니다.' }); // 로그인 실패 시 반환
     }
   });
 };

@@ -1,22 +1,43 @@
 const User = require('../models/User');
+const bcrypt = require('bcrypt');
+const saltRounds = 10; // 솔트를 생성하는 데 사용되는 라운드 수
 
-// 유저 생성
+// 회원가입
 exports.createUser = (req, res) => {
-  const userData = {
-    user_id: req.body.username,
-    password: req.body.password,
-    email: req.body.email
-  };
+  // 유효성 검사
+  if (!req.body.username || !req.body.password || !req.body.email) {
+    return res.render('signup', { message: '모든 필수 입력 항목을 채워주세요.' });
+  }
 
-  const user = new User();
+  // 비밀번호와 비밀번호 확인이 일치하는지 확인
+  if (req.body.password !== req.body['password-confirm']) {
+    return res.render('signup', { message: '비밀번호와 비밀번호 확인이 일치하지 않습니다.' });
+  }
 
-  user.createUser(userData, (err, result) => {
+  // bcrypt를 사용하여 비밀번호 해시 생성
+  bcrypt.hash(req.body.password, saltRounds, (err, hash) => {
     if (err) {
-      console.error('회원가입 오류:', err);
-      res.send('회원가입 실패');
-    } else {
-      res.send('회원가입 성공');
+      console.error('비밀번호 해시 생성 오류:', err);
+      return res.render('signup', { message: '회원가입 실패', details: err.message });
     }
+
+    const userData = {
+      user_id: req.body.username,
+      password: hash, // 해시된 비밀번호 저장
+      email: req.body.email
+    };
+
+    const user = new User();
+
+    user.createUser(userData, (err, result) => {
+      if (err) {
+        console.error('회원가입 오류:', err);
+        return res.render('signup', { message: '회원가입 실패', details: err.message });
+      } else {
+        res.render('signup', { message: '회원가입 성공' });
+      }
+      return res.redirect('/login');
+    });
   });
 };
 
