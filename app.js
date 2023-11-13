@@ -10,6 +10,9 @@ const config = require(__dirname + '/config/SessionConfig');
 const app = express();
 
 app.use(express.static(__dirname + '/static'));
+app.set('view engine', 'ejs'); // EJS 설정 추가
+app.set('views', __dirname + '/src/views'); // views 디렉토리 설정
+
 // 라우터 등록
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
@@ -21,6 +24,7 @@ app.use(session({
   saveUninitialized: true
 }));
 
+app.use(bodyParser.json()); // JSON 파싱을 위한 설정
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // 회원가입 처리
