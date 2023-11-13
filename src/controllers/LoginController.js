@@ -15,7 +15,7 @@ exports.login = (req, res) => {
       console.log("session: " + req.session.user);
       res.redirect('/main'); // 로그인 성공 시 홈페이지로 리다이렉트
     } else {
-      res.status(401).json({ error: '아이디 또는 비밀번호가 틀립니다.' }); // 로그인 실패 시 반환
+      res.render('login', { message: '아이디 또는 비밀번호가 틀립니다.' }); // 로그인 실패 시 반환
     }
   });
 };

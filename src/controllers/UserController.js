@@ -34,7 +34,7 @@ exports.createUser = (req, res) => {
         console.error('회원가입 오류:', err);
         return res.render('signup', { message: '회원가입 실패', details: err.message });
       } else {
-        return res.render('signup', { message: '회원가입 성공' });
+        return res.render('signup', { message: '회원가입 성공', isOK: 'OK' });
       }
     });
   });
