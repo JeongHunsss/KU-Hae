@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/css/signup.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left-box">
+            <div class="logo">
+                <h1>SIGN UP</h1>
+            </div>  
+            <div class="form">
+                <form action="/signup" method="post">
+                    <label for="username">UserID</label>
+                    <div class="input-with-button">
+                        <input type="text" id="username" name="username">
+                        <button class="small-button">Check</button>
+                    </div>
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password">
+                    <label for="password-confirm">Confirm Password</label>
+                    <input type="password" id="password-confirm" name="password-confirm">
+                    <label for="email">Email</label>
+                    <div class="email-input">
+                        <input type="email" id="email" name="email">
+                        <button class="small-button">Send</button>
+                    </div>
+                    <label for="verification-code">Verification Code</label>
+                    <div class="verification-input">
+                        <input type="text" id="verification-code" name="verification-code">
+                        <button class="small-button">Verify</button>
+                    </div>
+                    <input type="submit" value="Sign Up">
+                </form>
+            </div>
+            <div class="links">
+                <a href="/main" id="main">Home Page</a>
+                <a href="/login" id="signUp">Sign In</a>
+            </div>
+        </div>
+        <div class="right-box">
+            <img src="images/ku.png" alt="KU">
+        </div>
+    </div>
+</body>
+</html>
