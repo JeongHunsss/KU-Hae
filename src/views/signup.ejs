@@ -4,17 +4,6 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/css/signup.css">
 </head>
-<script>
-    <% if (typeof message !== 'undefined') { %>
-          const message = '<%= message %>';
-          alert(message);
-      <% } %>
-      <% if (typeof isOK !== 'undefined') { %>
-        <% if (isOK === 'OK') { %>
-            window.location.href = '/login';
-        <% } %>
-      <% } %>
-</script>
 <body>
     <div class="container">
         <div class="left-box">
@@ -54,5 +43,17 @@
             <img src="images/ku.png" alt="KU">
         </div>
     </div>
+
+    <script>
+        <% if (typeof message !== 'undefined') { %>
+            const message = '<%= message %>';
+            alert(message);
+        <% } %>
+        <% if (typeof isOK !== 'undefined') { %>
+            <% if (isOK === 'OK') { %>
+                window.location.href = '/login';
+            <% } %>
+        <% } %>
+    </script>
 </body>
 </html>
