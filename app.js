@@ -1,6 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+
 const signupRouter = require(__dirname + '/src/routes/signup');
 const loginRouter = require(__dirname + '/src/routes/login');
 const mainRouter = require(__dirname + '/src/routes/main');
@@ -10,13 +11,16 @@ const chat_pageRouter = require(__dirname + '/src/routes/chat_page');
 const my_pageRouter = require(__dirname + '/src/routes/my_page');
 const post_listRouter = require(__dirname + '/src/routes/post_list');
 const report_listRouter = require(__dirname + '/src/routes/report_list');
+
+const loginController = require(__dirname + '/src/controllers/LoginController');
+
 const config = require(__dirname + '/config/SessionConfig');
 
 const app = express();
 
 app.use(express.static(__dirname + '/static'));
-app.set('view engine', 'ejs'); // EJS 설정 추가
-app.set('views', __dirname + '/src/views'); // views 디렉토리 설정
+app.set('view engine', 'ejs');
+app.set('views', __dirname + '/src/views');
 
 // 세션 미들웨어 설정
 app.use(session({
@@ -41,10 +45,16 @@ app.use('/post_list', post_listRouter);
 app.use('/report_list', report_listRouter);
 
 
+// 로그아웃
+app.get('/logout', loginController.logout);
+
+// '/' 요청 시 '/main'으로 첫 화면 설정
+app.get('/', (req, res) => {
+  res.redirect('/main');
+});
 
 
-
-// 웹 서버 시작
+// 서버 시작
 const port = 3000;
 app.listen(port, () => {
   console.log(`서버가 ${port} 포트에서 실행 중`);
