@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="/css/top_bar.css">
-  <title>Your Website</title>
+  <title>top_bar</title>
 </head>
 
 <body>
@@ -24,31 +24,18 @@
       <a href="/qna">QnA</a>
     </div>
     <div class="user-info">
-
-      <% if (typeof user !== 'undefined') { %>
-        const user = '<%= user %>';
-        alert(user);
-    <% } %>
-
+    <% if (typeof user !== 'undefined') { %>
       <% if (user) { %>
-        <span>환영합니다, <%= user.username %></span>
+        <span>환영합니다, <a href="/my_page"><%= user %></a>님 반갑습니다</span>
         <a href="/logout">로그아웃</a>
       <% } else { %>
         <a href="/login">로그인</a>
-      <% } %>
-
-      <% if (typeof message !== 'undefined') { %>
-        const message = '<%= message %>';
-        alert(message);
-    <% } %>
-    <% if (typeof isOK !== 'undefined') { %>
-        <% if (isOK === 'OK') { %>
-            window.location.href = '/login';
-        <% } %>
+      <% }%>
+    <% } else { %>
+      <a href="/login">로그인</a>
     <% } %>
     </div>
     <div class="chat-container">
-      <span>님 반갑습니다</span>
       <span class="chat-icon" onclick="toggleChat()">💬</span>
     </div>
   </div>
