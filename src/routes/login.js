@@ -10,4 +10,4 @@ router.get('/', (req, res) => {
 // 로그인 처리
 router.post('/', loginController.login);
 
-  module.exports = router;
+module.exports = router;
