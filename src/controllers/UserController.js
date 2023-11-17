@@ -40,6 +40,25 @@ exports.createUser = (req, res) => {
   });
 };
 
+exports.checkDuplicateUsername = (req, res) => {
+  const username = req.body.username;
+
+  const user = new User();
+  user.getUserById(username, (err, result) => {
+      if (err) {
+          console.error('아이디 중복 확인 오류:', err);
+          res.status(500).json({ error: '아이디 중복 확인 오류' });
+      } else {
+          console.log(result.length);
+          if (result.length > 0) {
+              res.json({ isDuplicate: 0, DupMessage: '이미 사용 중인 아이디입니다.' });
+          } else {
+              res.json({ isDuplicate: 1, DupMessage: '사용 가능한 아이디입니다.' });
+          }
+      }
+  });
+};
+
 // 모든 유저 정보 가져오기
 exports.getAllUsers = (req, res) => {
   const user = new User();
@@ -71,38 +90,3 @@ exports.getUserById = (req, res) => {
   });
 };
 
-// 유저 정보 업데이트
-exports.updateUser = (req, res) => {
-  const userId = req.params.id;
-  const updatedData = {
-    user_id: req.body.username,
-    password: req.body.password,
-    email: req.body.email
-  };
-
-  const user = new User();
-
-  user.updateUser(userId, updatedData, (err, result) => {
-    if (err) {
-      console.error('유저 정보 업데이트 오류:', err);
-      res.send('유저 정보 업데이트 실패');
-    } else {
-      res.send('유저 정보 업데이트 성공');
-    }
-  });
-};
-
-// 유저 삭제
-exports.deleteUser = (req, res) => {
-  const userId = req.params.id;
-  const user = new User();
-
-  user.deleteUser(userId, (err, result) => {
-    if (err) {
-      console.error('유저 삭제 오류:', err);
-      res.send('유저 삭제 실패');
-    } else {
-      res.send('유저 삭제 성공');
-    }
-  });
-};
