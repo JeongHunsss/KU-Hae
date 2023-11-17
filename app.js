@@ -4,8 +4,12 @@ const bodyParser = require('body-parser');
 const signupRouter = require(__dirname + '/src/routes/signup');
 const loginRouter = require(__dirname + '/src/routes/login');
 const mainRouter = require(__dirname + '/src/routes/main');
-const userController = require(__dirname + '/src/controllers/UserController');
-const loginController = require(__dirname + '/src/controllers/LoginController');
+const ku_listRouter = require(__dirname + '/src/routes/ku_list');
+const notice_listRouter = require(__dirname + '/src/routes/notice_list');
+const chat_pageRouter = require(__dirname + '/src/routes/chat_page');
+const my_pageRouter = require(__dirname + '/src/routes/my_page');
+const post_listRouter = require(__dirname + '/src/routes/post_list');
+const report_listRouter = require(__dirname + '/src/routes/report_list');
 const config = require(__dirname + '/config/SessionConfig');
 
 const app = express();
@@ -29,16 +33,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.use('/main', mainRouter);
+app.use('/ku_list', ku_listRouter);
+app.use('/notice_list', notice_listRouter);
+app.use('/chat_page', chat_pageRouter);
+app.use('/my_page', my_pageRouter);
+app.use('/post_list', post_listRouter);
+app.use('/report_list', report_listRouter);
 
-// 회원가입 처리
-app.post('/signup', userController.createUser);
-// 로그인 처리
-app.post('/login', loginController.login);
 
-// 첫 화면 설정
-app.use('/', (req, res, next) => {
-  res.redirect('/main');
-});
+
 
 
 // 웹 서버 시작

@@ -16,19 +16,19 @@ class User {
 
     // 특정 유저 가져오기
   getUserById(userId, callback) {
-    const query = 'SELECT * FROM users WHERE id = ?';
+    const query = 'SELECT * FROM users WHERE user_id = ?';
     connection.query(query, [userId], callback);
   }
 
   // 업데이트
   updateUser(userId, updatedData, callback) {
-    const query = 'UPDATE users SET ? WHERE id = ?';
+    const query = 'UPDATE users SET ? WHERE user_id = ?';
     connection.query(query, [updatedData, userId], callback);
   }
 
   // 삭제
   deleteUser(userId, callback) {
-    const query = 'DELETE FROM users WHERE id = ?';
+    const query = 'DELETE FROM users WHERE user_id = ?';
     connection.query(query, [userId], callback);
   }
 

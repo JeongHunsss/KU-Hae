@@ -11,11 +11,16 @@
                 <h1>SIGN UP</h1>
             </div>  
             <div class="form">
-                <form action="/signup" method="post">
+                <form id="signup-form" action="/signup" method="post">
                     <label for="username">UserID</label>
+                    <div id="duplicationResult">
+                        <% if (typeof DupMessage !== 'undefined') { %>
+                            <%= DupMessage %>
+                        <% } %>
+                    </div>
                     <div class="input-with-button">
-                        <input type="text" id="username" name="username">
-                        <button class="small-button">Check</button>
+                            <input type="text" id="username" name="username">
+                            <button class="small-button" type="button" onclick="checkDuplicate()">Check</button>
                     </div>
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password">
@@ -56,4 +61,43 @@
         <% } %>
     </script>
 </body>
+<script>
+    <% if (typeof message !== 'undefined') { %>
+          const message = '<%= message %>';
+          alert(message);
+      <% } %>
+      <% if (typeof isOK !== 'undefined') { %>
+        <% if (isOK === 'OK') { %>
+            window.location.href = '/login';
+        <% } %>
+      <% } %>
+
+    function checkDuplicate() {
+        const username = document.getElementById('username').value;
+        const xhr = new XMLHttpRequest();
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    const duplicationResultDiv = document.getElementById('duplicationResult');
+                    // 중복 확인 결과 표시
+                    if (response.isDuplicate === 0) {
+                        duplicationResultDiv.className = 'not-ok-msg'; // 빨간 클래스 적용
+                    } else {
+                        duplicationResultDiv.className = 'ok-msg'; // 파란 클래스 적용
+                    }
+                    duplicationResultDiv.textContent = response.DupMessage;
+                } else {
+                    console.error('Error: ' + xhr.status);
+                }
+            }
+        };
+            
+        xhr.open('POST', '/signup/checkdup', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send('username=' + encodeURIComponent(username));
+    }
+
+</script>
 </html>

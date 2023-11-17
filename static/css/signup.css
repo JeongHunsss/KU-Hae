@@ -141,3 +141,12 @@ body {
     display: flex;
     align-items: center;
 }
+
+.ok-msg{
+    color: #007BFF;
+}
+
+.not-ok-msg{
+    color: red;
+}
+
