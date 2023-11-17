@@ -48,18 +48,6 @@
             <img src="images/ku.png" alt="KU">
         </div>
     </div>
-
-    <script>
-        <% if (typeof message !== 'undefined') { %>
-            const message = '<%= message %>';
-            alert(message);
-        <% } %>
-        <% if (typeof isOK !== 'undefined') { %>
-            <% if (isOK === 'OK') { %>
-                window.location.href = '/login';
-            <% } %>
-        <% } %>
-    </script>
 </body>
 <script>
     <% if (typeof message !== 'undefined') { %>
