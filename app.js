@@ -9,10 +9,8 @@ const ku_listRouter = require(__dirname + '/src/routes/ku_list');
 const notice_listRouter = require(__dirname + '/src/routes/notice_list');
 const chat_pageRouter = require(__dirname + '/src/routes/chat_page');
 const my_pageRouter = require(__dirname + '/src/routes/my_page');
-const post_listRouter = require(__dirname + '/src/routes/post_list');
+const contest_listRouter = require(__dirname + '/src/routes/contest_list');
 const report_listRouter = require(__dirname + '/src/routes/report_list');
-
-const loginController = require(__dirname + '/src/controllers/LoginController');
 
 const config = require(__dirname + '/config/SessionConfig');
 
@@ -41,12 +39,9 @@ app.use('/ku_list', ku_listRouter);
 app.use('/notice_list', notice_listRouter);
 app.use('/chat_page', chat_pageRouter);
 app.use('/my_page', my_pageRouter);
-app.use('/post_list', post_listRouter);
+app.use('/post_list', contest_listRouter);
 app.use('/report_list', report_listRouter);
 
-
-// 로그아웃
-app.get('/logout', loginController.logout);
 
 // '/' 요청 시 '/main'으로 첫 화면 설정
 app.get('/', (req, res) => {
