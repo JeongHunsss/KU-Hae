@@ -1,0 +1,85 @@
+body {
+    font-family: 'SOYOMapleBoldTTF', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  @font-face {
+    font-family: 'SOYOMapleBoldTTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/SOYOMapleBoldTTF.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  .section-wrapper {
+    margin-left: 590px; 
+  }
+
+  section {
+    max-width: 80%;
+    margin: 50px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  h2 {
+    color: #333;
+  }
+
+  .notice-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 15px;
+    position: relative;
+    width: 80%;
+    left: 180px;
+    box-sizing: border-box;
+  }
+
+  h3 {
+    color: #333;
+  }
+
+  .date {
+    color: #888;
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 80px; 
+
+  .pagination a {
+    color: #333;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    margin: 0 5px;
+  }
+
+  .write-button {
+    background-color: rgb(76, 114, 175);
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin-left: 500px; 
+    margin-top:30px;
+    bottom: 10px;
+    position: relative;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+  }
