@@ -11,6 +11,7 @@ const chat_pageRouter = require(__dirname + '/src/routes/chat_page');
 const my_pageRouter = require(__dirname + '/src/routes/my_page');
 const contest_listRouter = require(__dirname + '/src/routes/contest_list');
 const report_listRouter = require(__dirname + '/src/routes/report_list');
+const qnaRouter = require(__dirname + '/src/routes/qna');
 
 const config = require(__dirname + '/config/SessionConfig');
 
@@ -41,6 +42,7 @@ app.use('/chat_page', chat_pageRouter);
 app.use('/my_page', my_pageRouter);
 app.use('/post_list', contest_listRouter);
 app.use('/report_list', report_listRouter);
+app.use('/qna', qnaRouter);
 
 
 // '/' 요청 시 '/main'으로 첫 화면 설정
