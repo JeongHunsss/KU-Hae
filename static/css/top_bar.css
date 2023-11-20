@@ -1,4 +1,4 @@
-/* body {
+body {
   margin: 0;
   font-family: 'SOYOMapleBoldTTF', sans-serif;
 }
@@ -25,22 +25,35 @@
   text-decoration: none;
   font-size: 1.3em;
   font-weight: bold;
-  padding-right: 10px; 
+  padding-right: 1%; 
 }
 
 .logo img {
   position: absolute;
   height: 90px;
-  left: 10px;
+  left: 1%;
   top: 2px;
 }
 
 .navigation {
   position: absolute;
-  left: 50%;
+  left: 45%;
   justify-content: center;
   transform: translateX(-50%);
+  height:auto;
 }
+
+.navigation1 {
+  position: absolute;
+
+}
+
+.navigation2 {
+  position: relative;
+  margin-left:340px;
+
+}
+
 
 .navigation a {
   color: white;
@@ -51,7 +64,7 @@
 
 .user-info {
   position: absolute;
-  right: 90px; 
+  right: 6%;
 }
 
 .user-info a,
@@ -101,22 +114,31 @@
   z-index: 0; 
 }
 
-/* 화면 크기가 768px 이하 또는 화면 비율이 100%인 경우 추가 스타일 */
-@media (max-width: 768px), (max-aspect-ratio: 100/100) {
-  .top-bar {
-    padding: 0 20px; /* 화면이 작아질 때 padding 조정 또는 화면 비율이 100%일 때 적용되는 스타일 */
+
+  @media (max-width: 1600px) {
+    .navigation {
+      padding-right: 20%; 
+    }
+    
+    .navigation1 {
+      top:-10px;
+      left:20px;
+    }
+
+    .navigation2 {
+      margin-left:0px;
+      top:25px;
+    }
+
+    .user-info{
+      right:100px;
+    }
   }
 
-  .navigation,
-  .user-info,
-  .chat-container {
-    position: absolute;
-    left: 20px; /* 또는 여러 부분에 적용되는 스타일 */
+  @media (max-width: 1240px) {
+    .user-info{
+      width:auto;
+      left:300px;
+      font-size: 0.7em; 
+    }
   }
-}
-
-@media (max-width: 1400px){
-  .navigation {
-    left: 100px;
-  }
-} */

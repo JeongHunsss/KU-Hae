@@ -8,134 +8,6 @@
   <title>top_bar</title>
 </head>
 
-<style>
-  body {
-  margin: 0;
-  font-family: 'SOYOMapleBoldTTF', sans-serif;
-}
-
-@font-face {
-  font-family: 'SOYOMapleBoldTTF';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/SOYOMapleBoldTTF.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-}
-
-.top-bar {
-  background-color: #333;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 95px;
-  padding: 0 100px; 
-}
-
-.logo a {
-  color: white;
-  text-decoration: none;
-  font-size: 1.3em;
-  font-weight: bold;
-  padding-right: 1%; 
-}
-
-.logo img {
-  position: absolute;
-  height: 90px;
-  left: 1%;
-  top: 2px;
-}
-
-.navigation {
-  position: absolute;
-  left: 50%;
-  justify-content: center;
-  transform: translateX(-50%);
-}
-
-.navigation a {
-  color: white;
-  text-decoration: none;
-  margin: 0 25px;
-  font-size: 1.3em; 
-}
-
-.user-info {
-  position: absolute;
-  right: 6%;
-}
-
-.user-info a,
-.user-info span {
-  color: white;
-  text-decoration: none;
-  margin-left: 30px;
-  font-size: 1.3em; 
-}
-
-.user-info span {
-  font-weight: bold;
-  white-space: nowrap;
-}
-
-.chat-container {
-  position: absolute;
-  right: 30px; 
-}
-
-.chat-icon {
-  cursor: pointer;
-  font-size: 1.5em;
-  color: #3498db;
-  transition: color 0.3s ease;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 3.5px;
-  z-index: 1; 
-}
-
-.chat-icon:hover {
-  color: #2980b9;
-}
-
-.chat-box {
-  display: none;
-  background-color: #f0f0f0;
-  position: absolute;
-  top: 60px;
-  right: 0;
-  border: 1px solid #ccc;
-  font-size: 1.3em;
-  width: 200px; 
-  padding: 10px; 
-  z-index: 0; 
-}
-
-@media (max-width: 768px), (max-aspect-ratio: 100/100) {
-    .top-bar {
-      padding: 0 15%;
-    }
-
-    .logo {
-      padding-right: 1%; /* 로고와의 간격 조정 */
-    }
-
-    .navigation,
-    .user-info,
-    .chat-container {
-      position: absolute;
-      left: 10px; /* 변경: 20px -> 10px */
-    }
-  }
-
-  @media (max-width: 1112px) {
-    .navigation {
-      padding-right: 10%; /* 변경: 1px -> 10px */
-    }
-  }
-</style>
-
 <body>
   <div class="top-bar" id="topBar">
     <div class="logo">
@@ -144,11 +16,16 @@
       </a>
     </div>
     <div class="navigation">
-      <a href="/">홈</a>
-      <a href="/notice_list">공지사항</a>
-      <a href="/ku_list">팀 구하기</a>
-      <a href="/post_list">공모전</a>
-      <a href="/qna">QnA</a>
+      <div class="navigation1">
+        <a href="/">홈</a>
+        <a href="/notice_list">공지사항</a>
+        <a href="/ku_list">팀 구하기</a>
+      </div>
+      <div class="navigation2">
+        <a href="/post_list">공모전</a>
+        <a href="/qna">QnA</a>
+        <a href="/report_list">신고받은 페이지</a>
+      </div>
     </div>
     <div class="user-info">
       <% if (typeof user !== 'undefined') { %>
