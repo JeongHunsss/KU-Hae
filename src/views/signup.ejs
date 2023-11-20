@@ -11,33 +11,28 @@
                 <h1>SIGN UP</h1>
             </div>  
             <div class="form">
-                <form id="signup-form" action="/signup" method="post">
-                    <label for="username">UserID</label>
-                    <div id="duplicationResult">
-                        <% if (typeof DupMessage !== 'undefined') { %>
-                            <%= DupMessage %>
-                        <% } %>
-                    </div>
-                    <div class="input-with-button">
-                            <input type="text" id="username" name="username">
-                            <button class="small-button" type="button" onclick="checkDuplicate()">Check</button>
-                    </div>
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password">
-                    <label for="password-confirm">Confirm Password</label>
-                    <input type="password" id="password-confirm" name="password-confirm">
-                    <label for="email">Email</label>
-                    <div class="email-input">
-                        <input type="text" id="email" name="email">@kku.ac.kr
-                        <button class="small-button">Send</button>
-                    </div>
-                    <label for="verification-code">Verification Code</label>
-                    <div class="verification-input">
-                        <input type="text" id="verification-code" name="verification-code">
-                        <button class="small-button">Verify</button>
-                    </div>
-                    <input type="submit" value="Sign Up">
-                </form>
+                <label for="username">UserID</label>
+                <div id="duplicationResult"></div>
+                <div class="input-with-button">
+                        <input type="text" id="username" name="username">
+                        <button class="small-button" type="button" onclick="checkDuplicate()">Check</button>
+                </div>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password">
+                <label for="password-confirm">Confirm Password</label>
+                <input type="password" id="password-confirm" name="password-confirm">
+                <label for="email">Email</label>
+                <div id="emailResult"></div>
+                <div class="email-input">
+                    <input type="text" id="email" name="email">@kku.ac.kr
+                    <button class="small-button" type="button" onclick="checkEmail()">Send</button>
+                </div>
+                <label for="verification-code">Verification Code</label>
+                <div class="verification-input">
+                    <input type="text" id="verification-code" name="verification-code">
+                    <button class="small-button" type="button" onclick="checkCode()">Verify</button>
+                </div>
+                <button id="signupButton" type="button" onclick="SignUp()">Sign Up</button>
             </div>
             <div class="links">
                 <a href="/main" id="main">Home Page</a>
@@ -48,44 +43,146 @@
             <img src="images/ku.png" alt="KU">
         </div>
     </div>
-</body>
-<script>
-    <% if (typeof message !== 'undefined') { %>
-          const message = '<%= message %>';
-          alert(message);
-      <% } %>
-      <% if (typeof isOK !== 'undefined') { %>
-        <% if (isOK === 'OK') { %>
-            window.location.href = '/login';
-        <% } %>
-      <% } %>
-
-    function checkDuplicate() {
-        const username = document.getElementById('username').value;
-        const xhr = new XMLHttpRequest();
-
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status === 200) {
-                    const response = JSON.parse(xhr.responseText);
-                    const duplicationResultDiv = document.getElementById('duplicationResult');
-                    // 중복 확인 결과 표시
-                    if (response.isDuplicate === 0) {
-                        duplicationResultDiv.className = 'not-ok-msg'; // 빨간 클래스 적용
+    <script>
+        var isDuplicate = false;
+        var isEmailCheck = false;
+        // 중복 확인
+        function checkDuplicate() {
+            const username = document.getElementById('username').value;
+            const xhr = new XMLHttpRequest();
+    
+            xhr.open('POST', '/signup/checkdup', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        const duplicationResultDiv = document.getElementById('duplicationResult');
+                        // 중복 확인 결과 표시
+                        if (response.isDuplicate === false) {
+                            duplicationResultDiv.className = 'not-ok-msg'; // 빨간 클래스 적용
+                        } else {
+                            duplicationResultDiv.className = 'ok-msg'; // 파란 클래스 적용
+                        }
+                        duplicationResultDiv.textContent = response.DupMessage;
+                        isDuplicate = response.isDuplicate; // 중복 확인 체크
                     } else {
-                        duplicationResultDiv.className = 'ok-msg'; // 파란 클래스 적용
+                        console.error('Error: ' + xhr.status);
                     }
-                    duplicationResultDiv.textContent = response.DupMessage;
-                } else {
-                    console.error('Error: ' + xhr.status);
                 }
-            }
-        };
+            };
             
-        xhr.open('POST', '/signup/checkdup', true);
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.send('username=' + encodeURIComponent(username));
-    }
+            xhr.send('username=' + encodeURIComponent(username));
+        }
+    
+        // 이메일 인증
+        function checkEmail() {
+            const email = document.getElementById('email').value;
+            const xhr = new XMLHttpRequest();
+            
+            xhr.open('POST', '/signup/checkemail', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        const emailResultDiv = document.getElementById('emailResult');
+                        // 이메일 전송 결과 표시
+                        if (response.isEmailSend === false) {
+                            emailResultDiv.className = 'not-ok-msg'; // 빨간 클래스 적용
+                        } else {
+                            emailResultDiv.className = 'ok-msg'; // 파란 클래스 적용
+                        }
+                        emailResultDiv.textContent = response.EmailMessage;
+                    } else {
+                        console.error('Error: ' + xhr.status);
+                    }
+                }
+            };
+            
+            xhr.send('email=' + encodeURIComponent(email));
+        }
+    
+        // 이메일 인증 코드 확인
+        function checkCode() {
+            const email = document.getElementById('email').value;
+            const enteredCode = document.getElementById('verification-code').value;
+            const xhr = new XMLHttpRequest();
+            
+            xhr.open('POST', '/signup/checkcode', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        const emailResultDiv = document.getElementById('emailResult');
+                        // 이메일 인증 결과 표시
+                        if (response.isEmailCheck === false) {
+                            emailResultDiv.className = 'not-ok-msg'; // 빨간 클래스 적용
+                        } else {
+                            emailResultDiv.className = 'ok-msg'; // 파란 클래스 적용
+                        }
+                        emailResultDiv.textContent = response.EmailMessage;
+                        isEmailCheck = response.isEmailCheck;
+                    } else {
+                        console.error('Error: ' + xhr.status);
+                    }
+                }
+            };
+            
+            xhr.send('email=' + encodeURIComponent(email) 
+                    + '&enteredCode=' + encodeURIComponent(enteredCode));
+        }
+    
+        // 회원가입
+        function SignUp() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const password_confirm = document.getElementById('password-confirm').value;
+            const email = document.getElementById('email').value;
 
-</script>
+            const xhr = new XMLHttpRequest();
+
+            xhr.open('POST', '/signup', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        if (response.message) {
+                            alert(response.message);
+                            if (response.isOK === true){
+                                window.location.href = '/login'; // 회원가입 성공 시 로그인 페이지로
+                            }
+                        } else {
+                            console.error('Error: ' + xhr.status);
+                        }
+                    }
+                }
+            };
+
+            if (isDuplicate !== true) {
+                alert('아이디 중복 확인을 해주세요.');
+                return;
+            }
+            if (isEmailCheck !== true) {
+                alert('이메일 인증을 해주세요.');
+                return;
+            }
+
+            xhr.send(
+                'username=' + encodeURIComponent(username) +
+                '&password=' + encodeURIComponent(password) +
+                '&password_confirm=' + encodeURIComponent(password_confirm) +
+                '&email=' + encodeURIComponent(email)
+            );
+            
+        }
+    
+    </script>
+</body>
 </html>

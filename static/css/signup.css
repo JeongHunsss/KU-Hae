@@ -112,7 +112,7 @@ body {
     background-color: #0056b3;
 }
 
-.form input[type="submit"] {
+#signupButton {
     background-color: #007BFF;
     color: white;
     border: none;
@@ -121,7 +121,7 @@ body {
     cursor: pointer;
 }
 
-.form input[type="submit"]:hover {
+#signupButton:hover {
     background-color: #0056b3;
 }
 
