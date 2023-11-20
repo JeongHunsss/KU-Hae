@@ -19,7 +19,9 @@ exports.sendVerificationEmail = (req, res) => {
     verificationCodes[userEmail] = []; // userEmail에 대한 배열 빈 배열로 초기화
     verificationCodes[userEmail].push(verificationNumber); // 이메일에 대한 인증코드 저장
 
-    console.log("인증코드: " + verificationCodes);
+    console.log("-----인증코드-----");
+    console.log(verificationCodes);
+    console.log("-----------------");
   
     mailOptions.to = userEmail + '@kku.ac.kr'; // 수신 이메일 주소
     mailOptions.text = `KU-HAE 이메일 인증을 하기 위해선 다음 코드를 입력해주세요: ${verificationNumber}`;
