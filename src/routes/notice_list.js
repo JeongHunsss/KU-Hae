@@ -2,15 +2,18 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.render('notice_list');
+  const user = req.session.user;
+  res.render('notice_list', {user});
 });
 
 router.get('/add', (req, res) => {
-  res.render('notice_add');
+  const user = req.session.user;
+  res.render('notice_add', {user});
 });
 
 router.get('/detail', (req, res) => {
-  res.render('notice_detail');
+  const user = req.session.user;
+  res.render('notice_detail', {user});
 });
 
   module.exports = router;

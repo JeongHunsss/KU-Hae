@@ -2,15 +2,18 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.render('qna');
+  const user = req.session.user;
+  res.render('qna', {user});
 });
 
 router.get('/add', (req, res) => {
-  res.render('qna_add');
+  const user = req.session.user;
+  res.render('qna_add', {user});
 });
 
 router.get('/detail', (req, res) => {
-  res.render('qna_detail');
+  const user = req.session.user;
+  res.render('qna_detail', {user});
 });
 
   module.exports = router;

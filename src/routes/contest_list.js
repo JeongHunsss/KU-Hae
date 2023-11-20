@@ -2,11 +2,13 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.render('contest_list');
+  const user = req.session.user;
+  res.render('contest_list', {user});
 });
 
 router.get('/detail', (req, res) => {
-  res.render('contest_detail');
+  const user = req.session.user;
+  res.render('contest_detail', {user});
 });
 
   module.exports = router;
