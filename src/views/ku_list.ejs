@@ -7,10 +7,7 @@
     <link rel="stylesheet" type="text/css" href="/css/ku_list.css">
     <title>KU해 팀구하기</title>
 </head>
-
-
 <body>
-
 
     <%-include('top_bar.ejs')%>
 
@@ -25,108 +22,26 @@
 
 
     <section>
-        <div class="team-card">
-            <h3>코딩 마스터즈</h3>
-            <div class="team-info2">
-                <h5>[온라인] [주제]</h5>
+        <% lists.forEach((item, index) => { %>
+            <div class="team-card">
+                <h3><%= item.title %></h3>
+                <div class="team-info2">
+                    <h5>[<%= item.is_Online %>] [<%= item.subject %>]</h5>
+                </div>
+               
+                <h5><%= item.content %></h5>
+                <button class="matching">매칭하기</button>
+                <button onclick="toggleHeart(this)" class="heart-icon">&#10084;</button>
+                <!-- 신고 버튼 추가 -->
+                <button onclick="reportTeam(this)" class="report-button">🚨</button>
+                <div class="team-info">
+                    <h5>작성자: <%= item.author %></h5>
+                    <% const createDate = new Date(item.create_date); %>
+                    <% const formattedDate = `${createDate.getFullYear()}. ${createDate.getMonth() + 1}. ${createDate.getDate()}`; %>
+                    <h5><%= formattedDate %></h5>
+                </div>
             </div>
-           
-            <h5>최고의 코딩 스킬을 가진 팀원을 찾습니다. 함께 성장하고 프로젝트를 진행해보아요!</h5>
-            <button>매칭하기</button>
-            <button onclick="toggleHeart(this)" class="heart-icon">&#10084;</button>
-            <!-- 신고 버튼 추가 -->
-            <button onclick="reportTeam(this)" class="report-button">🚨</button>
-            <div class="team-info">
-                <h5>작성자: 작성자 이름</h5>
-                <h5>2018-09-22</h5>
-            </div>
-        </div>
-
-        <div class="team-card">
-            <h3>코딩 마스터즈</h3>
-            <div class="team-info2">
-                <h5>[온라인] [주제]</h5>
-            </div>
-           
-            <h5>최고의 코딩 스킬을 가진 팀원을 찾습니다. 함께 성장하고 프로젝트를 진행해보아요!</h5>
-            <button>매칭하기</button>
-            <button onclick="toggleHeart(this)" class="heart-icon">&#10084;</button>
-            <!-- 신고 버튼 추가 -->
-            <button onclick="reportTeam(this)" class="report-button">🚨</button>
-            <div class="team-info">
-                <h5>작성자: 작성자 이름</h5>
-                <h5>2018-09-22</h5>
-            </div>
-        </div>
-
-        <div class="team-card">
-            <h3>코딩 마스터즈</h3>
-            <div class="team-info2">
-                <h5>[온라인] [주제]</h5>
-            </div>
-           
-            <h5>최고의 코딩 스킬을 가진 팀원을 찾습니다. 함께 성장하고 프로젝트를 진행해보아요!</h5>
-            <button>매칭하기</button>
-            <button onclick="toggleHeart(this)" class="heart-icon">&#10084;</button>
-            <!-- 신고 버튼 추가 -->
-            <button onclick="reportTeam(this)" class="report-button">🚨</button>
-            <div class="team-info">
-                <h5>작성자: 작성자 이름</h5>
-                <h5>2018-09-22</h5>
-            </div>
-        </div>
-
-        <div class="team-card">
-            <h3>코딩 마스터즈</h3>
-            <div class="team-info2">
-                <h5>[온라인] [주제]</h5>
-            </div>
-           
-            <h5>최고의 코딩 스킬을 가진 팀원을 찾습니다. 함께 성장하고 프로젝트를 진행해보아요!</h5>
-            <button>매칭하기</button>
-            <button onclick="toggleHeart(this)" class="heart-icon">&#10084;</button>
-            <!-- 신고 버튼 추가 -->
-            <button onclick="reportTeam(this)" class="report-button">🚨</button>
-            <div class="team-info">
-                <h5>작성자: 작성자 이름</h5>
-                <h5>2018-09-22</h5>
-            </div>
-        </div>
-
-        <div class="team-card">
-            <h3>코딩 마스터즈</h3>
-            <div class="team-info2">
-                <h5>[온라인] [주제]</h5>
-            </div>
-           
-            <h5>최고의 코딩 스킬을 가진 팀원을 찾습니다. 함께 성장하고 프로젝트를 진행해보아요!</h5>
-            <button>매칭하기</button>
-            <button onclick="toggleHeart(this)" class="heart-icon">&#10084;</button>
-            <!-- 신고 버튼 추가 -->
-            <button onclick="reportTeam(this)" class="report-button">🚨</button>
-            <div class="team-info">
-                <h5>작성자: 작성자 이름</h5>
-                <h5>2018-09-22</h5>
-            </div>
-        </div>
-
-        <div class="team-card">
-            <h3>코딩 마스터즈</h3>
-            <div class="team-info2">
-                <h5>[온라인] [주제]</h5>
-            </div>
-           
-            <h5>최고의 코딩 스킬을 가진 팀원을 찾습니다. 함께 성장하고 프로젝트를 진행해보아요!</h5>
-            <button>매칭하기</button>
-            <button onclick="toggleHeart(this)" class="heart-icon">&#10084;</button>
-            <!-- 신고 버튼 추가 -->
-            <button onclick="reportTeam(this)" class="report-button">🚨</button>
-            <div class="team-info">
-                <h5>작성자: 작성자 이름</h5>
-                <h5>2018-09-22</h5>
-            </div>
-        </div>
-
+        <% }); %>
     </section>
 
     <div class="pagination">
