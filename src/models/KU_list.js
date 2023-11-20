@@ -1,3 +1,5 @@
+const connection = require('../../config/DBconfig');
+
 class KU_list {
     // 글 생성
   createList(listData, callback) {
@@ -27,6 +29,11 @@ class KU_list {
   deleteList(listId, callback) {
     const query = 'DELETE FROM ku_list WHERE id = ?';
     connection.query(query, [listId], callback);
+  }
+
+  // 연결 종료
+  closeConnection() {
+    connection.end();
   }
 }
 
