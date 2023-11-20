@@ -1,16 +1,18 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.render('ku_list');
-});
+const ku_listController = require('../controllers/KU_listController');
+
+router.get('/', ku_listController.PageOpen);
 
 router.get('/add', (req, res) => {
-  res.render('ku_add');
+  const user = req.session.user;
+  res.render('ku_add', {user});
 });
 
 router.get('/detail', (req, res) => {
-  res.render('ku_detail');
+  const user = req.session.user;
+  res.render('ku_detail', {user});
 });
 
   module.exports = router;
