@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <div class="top-bar">
+  <div class="top-bar" id="topBar">
     <div class="logo">
       <a href="/">
         <img src="/images/ku.png" alt="KU">
@@ -24,19 +24,19 @@
       <a href="/qna">QnA</a>
     </div>
     <div class="user-info">
-    <% if (typeof user !== 'undefined') { %>
-      <% if (user) { %>
-        <span>환영합니다, <a href="/my_page"><%= user %></a>님 반갑습니다</span>
-        <a href="/logout">로그아웃</a>
+      <% if (typeof user !== 'undefined') { %>
+        <% if (user) { %>
+          <span><a href="/my_page"><%= user %></a>님 반갑습니다</span>
+          <a href="/login/logout">로그아웃</a>
+        <% } else { %>
+          <a href="/login">로그인</a>
+        <% }%>
       <% } else { %>
         <a href="/login">로그인</a>
-      <% }%>
-    <% } else { %>
-      <a href="/login">로그인</a>
-    <% } %>
+      <% } %>
     </div>
     <div class="chat-container">
-      <span class="chat-icon" onclick="toggleChat()">💬</span>
+      <span class="chat-icon" onclick="toggleChat()">🧐</span>
     </div>
   </div>
 
@@ -46,6 +46,30 @@
   </div>
 
   <script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+      adjustUserPosition();
+      window.addEventListener('resize', adjustUserPosition);
+    });
+
+    function adjustUserPosition() {
+      var topBar = document.getElementById('topBar');
+      var userContainer = document.querySelector('.user-info');
+
+      if (userContainer) {
+        if (isUserLoggedIn()) {
+          userContainer.style.marginLeft = '90px';
+        } else {
+          userContainer.style.marginLeft = '350px';
+        }
+      }
+    }
+
+    function isUserLoggedIn() {
+      // 여기에 로그인 여부를 확인하는 로직을 추가하세요
+      // 예를 들어, 로그인된 경우에는 true를 반환하고, 그렇지 않으면 false를 반환하도록 구현
+      return false; // 예시: 로그인되지 않은 상태
+    }
+
     function toggleChat() {
       var chatBox = document.getElementById("chatBox");
       chatBox.style.display = (chatBox.style.display === "none" || chatBox.style.display === "") ? "block" : "none";

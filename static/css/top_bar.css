@@ -1,3 +1,6 @@
+/* top_bar.css */
+
+/* 기본 스타일 */
 body {
   margin: 0;
   font-family: 'SOYOMapleBoldTTF', sans-serif;
@@ -12,58 +15,110 @@ body {
 
 .top-bar {
   background-color: #333;
-  padding: 10px;
   color: white;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  height: 95px;
+  padding: 0 100px; 
 }
 
 .logo a {
   color: white;
   text-decoration: none;
-  font-size: 1.5em;
+  font-size: 1.3em;
   font-weight: bold;
+  padding-right: 10px; 
 }
 
 .logo img {
-  height: 40px; /* Adjust the height as needed */
+  position: absolute;
+  height: 90px;
+  left: 10px;
+  top: 2px;
+}
+
+.navigation {
+  position: absolute;
+  left: 320px;
+  justify-content: center; 
 }
 
 .navigation a {
   color: white;
   text-decoration: none;
-  margin: 0 15px;
+  margin: 0 25px;
+  font-size: 1.3em; 
+}
+
+.user-info {
+  position: absolute;
+  right: 90px; 
 }
 
 .user-info a,
 .user-info span {
   color: white;
   text-decoration: none;
-  margin-left: 15px;
+  margin-left: 30px;
+  font-size: 1.3em; 
 }
 
 .user-info span {
   font-weight: bold;
+  white-space: nowrap;
 }
 
 .chat-container {
-  display: flex;
-  align-items: center;
+  position: absolute;
+  right: 30px; 
 }
 
 .chat-icon {
   cursor: pointer;
   font-size: 1.5em;
-  margin-left: auto; /* Move the chat icon to the right */
+  color: #3498db;
+  transition: color 0.3s ease;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 3.5px;
+  z-index: 1; /* chat-icon이 상위에 오도록 설정 */
+}
+
+.chat-icon:hover {
+  color: #2980b9;
 }
 
 .chat-box {
   display: none;
   background-color: #f0f0f0;
-  padding: 10px;
   position: absolute;
-  top: 60px; /* Adjust the top position as needed */
-  right: 10px;
+  top: 60px;
+  right: 0;
   border: 1px solid #ccc;
+  font-size: 1.3em;
+  width: 200px; /* chat-box의 너비 설정 */
+  padding: 10px; /* 내용과 테두리 사이 여백 설정 */
+  z-index: 0; /* chat-box가 하위에 오도록 설정 */
+}
+
+/* 화면 크기가 768px 이하 또는 화면 비율이 100%인 경우 추가 스타일 */
+@media (max-width: 768px), (max-aspect-ratio: 100/100) {
+  .top-bar {
+    padding: 0 20px; /* 화면이 작아질 때 padding 조정 또는 화면 비율이 100%일 때 적용되는 스타일 */
+  }
+
+  .navigation,
+  .user-info,
+  .chat-container {
+    position: absolute;
+    left: 20px; /* 또는 여러 부분에 적용되는 스타일 */
+  }
+}
+
+@media (max-width: 1400px){
+  .navigation {
+    left: 200px;
+  }
 }
