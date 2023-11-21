@@ -7,23 +7,32 @@
     <link rel="stylesheet" type="text/css" href="/css/ku_list.css">
     <title>KU해 팀구하기</title>
 </head>
-<body>
 
+<body>
     <%-include('top_bar.ejs')%>
 
     <header>
         <h1>여기서 팀 KU해</h1>
     </header>
 
+    
     <div class="search-container">
         <input type="text" class="search-input" placeholder="검색어를 입력하세요">
         <button class="search-button">검색</button>
     </div>
 
 
+    <div class="button-container">
+        <button class="write-button">글쓰기</button>
+    </div>
+
+
+
     <section>
+        
         <% lists.forEach((item, index) => { %>
             <div class="team-card">
+                <div id="reported-count">신고 수: 0</div>
                 <h3><%= item.title %></h3>
                 <div class="team-info2">
                     <h5>[<%= item.is_Online %>] [<%= item.subject %>]</h5>
@@ -32,8 +41,14 @@
                 <h5><%= item.content %></h5>
                 <button class="matching">매칭하기</button>
                 <button onclick="toggleHeart(this)" class="heart-icon">&#10084;</button>
-                <!-- 신고 버튼 추가 -->
-                <button onclick="reportTeam(this)" class="report-button">🚨</button>
+                <button onclick="reportlist(this)" class="report-button">🚨</button>
+
+                <div class="team-buttons">
+                    <button onclick="editTeam(this)" class="edit-button">수정</button>
+                    <button onclick="deleteTeam(this)" class="delete-button">삭제</button>
+                </div>
+
+
                 <div class="team-info">
                     <h5>작성자: <%= item.author %></h5>
                     <% const createDate = new Date(item.create_date); %>

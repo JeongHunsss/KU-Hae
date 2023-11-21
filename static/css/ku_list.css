@@ -11,9 +11,10 @@ header {
 }
 
 .search-input {
-    padding: 10px;
+    padding: 15px 33px;
     border: 1px solid #ccc;
     border-radius: 5px 0 0 5px;
+    font-size: 1.0rem;
 }
 
 .search-button {
@@ -29,10 +30,11 @@ header {
     background-color: #4c5baf;
 }
 
+
 body {
     font-family: 'SOYOMapleBoldTTF', sans-serif;
     padding: 10 90px;
-    height: 1050px;
+    height: 800px;
 }
 
 @font-face {
@@ -49,26 +51,29 @@ section {
     padding: 5px;
 }
 
-.team-card {
-    width: 300px;
-    margin: 15px;
-    padding: 29px;
-    border: 1px solid #646262;
-    border-radius: 15px;
-}
 
-.team-card button {
-    border: none;
-    background-color: rgb(109, 110, 112);
-    color: rgb(255, 255, 255);
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
+
+    .team-card {
+        width: 300px;
+        position: relative;
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin: 10px;
+        border-radius: 5px;
+    }
+
+    .team-card button {
+        border: none;
+        background-color: rgb(109, 110, 112);
+        color: rgb(255, 255, 255);
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
 
 .matching:hover {
     background-color: rgb(69, 95, 160);
@@ -129,3 +134,60 @@ footer {
     position: fixed;
     bottom: 0;
 }
+
+.button-container {
+    display: flex;
+    justify-content: flex-end; /* Align items to the right */
+    margin-right: 80px;
+    margin-top: 10px;
+    bottom: 100px;
+    position:absolute;
+    right: 10px;
+
+}
+
+.write-button {
+    background-color: #646262;
+    color: white;
+    border: 1px solid #646262;
+    border-radius: 5px;
+    padding: 13px 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 12px;
+    right: 400px;
+    z-index: 1;
+}
+
+.write-button:hover {
+    background-color: #334294; /* Change color on hover as needed */
+}
+
+#reported-count {
+        position: absolute;
+        top: 20px;
+        right: 25px;
+        color: #ff0000;
+    }
+
+
+
+    .team-buttons .edit-button {
+        background-color: rgb(69, 95, 160) !important;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        margin-right: 5px;
+        cursor: pointer;
+    }
+    
+    .team-buttons .delete-button {
+        background-color: #ff0000 !important;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        margin-right: 5px;
+        cursor: pointer;
+    }
