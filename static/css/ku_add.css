@@ -12,22 +12,14 @@ body {
   font-style: normal;
 }
 
-.container {
+  .container {
     max-width: 800px;
     margin: 20px auto;
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    height: 600px;
-  }
-
-  .titlecontainer {
-    text-align: center;
-  }
-
-  h2 {
-    margin-bottom: 30px; 
+    height:600px;
   }
 
   label {
@@ -43,14 +35,13 @@ body {
   }
 
   button {
-    display: block; 
     background-color: #646262;
     color: #fff;
     padding: 10px 15px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin-left: auto; 
+    align-items: right;
   }
 
   button:hover {
