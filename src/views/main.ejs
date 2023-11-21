@@ -7,6 +7,7 @@
     <title>KU해</title>
     <script src="/static/js/Scroll Fade in Animation.js"></script>
 </head>
+
 <body>
 
     <%-include('top_bar.ejs')%>
@@ -33,11 +34,23 @@
                     <p>우리는 협력과 창의성을 중시합니다. 함께 더 나은 결과물을 만들기 위해 노력하며, 모든 팀원이 자신의 아이디어를 자유롭게 나눌 수 있는 환경을 제공합니다.</p>
                 </div>
             </div>
-        </div>
+
+            <div class="message">
+                <div class="left-balloon">
+                    <h2>창의성을 발휘하세요</h2>
+                    <p>KU해에 참여하여 협업의 세계를 탐험하세요! 완벽한 팀을 찾거나 나만의 팀을 만들어 아이디어를 현실로 만들어 보세요. 우리 함께 혁신적인 결과물을 창출하는 여정에 나서봐요. 지금 바로 모험을 시작하세요!</p>
+                </div>
+            </div>
+
+            <div class="message">
+                <div class="right-balloon">
+                    <h3>혁신의 기회</h3>
+                    <p>KU해에서는 훌륭한 팀원들과 함께 노력하여 더 나은 결과물을 창출합시다. 모든 팀원이 자유롭게 아이디어를 공유할 수 있는 환경에서 미래를 만들어가세요. 흥미진진한 프로젝트가 여러분을 기다리고 있어요!</p>
+                </div>
+            </div>
+        </div> 
 
         <div class="sa sa-up">
-            <!-- 이 사이에 있는 것들이 하나로 올라옴 -->
-            <!-- 내려가는 애니메이션 효과를 원하는 요소들을 이 위치에 추가 -->
         </div>
     </div>
 
@@ -46,5 +59,23 @@
             <p>&copy; KU-HAE</p>
         </div>
     </footer>
+
+    <script>
+        document.addEventListener('scroll', function() {
+            var messages = document.querySelectorAll('.message');
+            
+            messages.forEach(function(message, index) {
+                var boundingBox = message.getBoundingClientRect();
+
+                if (boundingBox.top < window.innerHeight && boundingBox.bottom >= 0) {
+                    // 화면에 보일 때 scroll-show 클래스 추가
+                    message.classList.add('scroll-show');
+                } else {
+                    // 화면에 보이지 않을 때 scroll-show 클래스 제거
+                    message.classList.remove('scroll-show');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
