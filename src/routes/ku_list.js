@@ -15,4 +15,6 @@ router.get('/detail', (req, res) => {
   res.render('ku_detail', {user});
 });
 
+router.post('/report', ku_listController.ReportList);
+
   module.exports = router;
