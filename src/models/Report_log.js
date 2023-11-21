@@ -8,7 +8,7 @@ class Report_log {
   }
 
     // 특정 로그 가져오기
-  getListById(userId, postId, callback) {
+  getLogById(userId, postId, callback) {
     const query = 'SELECT * FROM report_log WHERE user_id = ? AND post_id = ?';
     connection.query(query, [userId, postId], callback);
   }

@@ -15,24 +15,16 @@
         <h1>여기서 팀 KU해</h1>
     </header>
 
-    
     <div class="search-container">
         <input type="text" class="search-input" placeholder="검색어를 입력하세요">
         <button class="search-button">검색</button>
     </div>
 
-
-    <div class="button-container">
-        <button class="write-button">글쓰기</button>
-    </div>
-
-
-
     <section>
         
         <% lists.forEach((item, index) => { %>
             <div class="team-card">
-                <div id="reported-count">신고 수: 0</div>
+                <div id="reported-count">신고 수: <%= item.report %></div>
                 <h3><%= item.title %></h3>
                 <div class="team-info2">
                     <h5>[<%= item.is_Online %>] [<%= item.subject %>]</h5>
@@ -40,12 +32,12 @@
                
                 <h5><%= item.content %></h5>
                 <button class="matching">매칭하기</button>
-                <button onclick="toggleHeart(this)" class="heart-icon">&#10084;</button>
-                <button onclick="reportlist(this)" class="report-button">🚨</button>
+                <button onclick="" class="heart-icon">&#10084;</button>
+                <button onclick="reportList(<%= item.id %>)" class="report-button">🚨</button>
 
                 <div class="team-buttons">
-                    <button onclick="editTeam(this)" class="edit-button">수정</button>
-                    <button onclick="deleteTeam(this)" class="delete-button">삭제</button>
+                    <button onclick="editList(this)" class="edit-button">수정</button>
+                    <button onclick="deleteList(this)" class="delete-button">삭제</button>
                 </div>
 
 
@@ -59,6 +51,10 @@
         <% }); %>
     </section>
 
+    <div class="button-container">
+        <button class="write-button" onclick="location.href='/ku_list/add'">글쓰기</button>
+    </div>
+
     <div class="pagination">
         <a href="#">1</a>
         <a href="#">2</a>
@@ -70,16 +66,32 @@
     </footer>
 
     <script>
-        // 토글(Toggle) 함수
-        function toggleHeart(button) {
-            button.classList.toggle('heart-icon');
-        }
-
-        // 신고하기 버튼 클릭 시 동작할 함수
-        function reportTeam(button) {
-            // 여기에 신고하기 버튼을 눌렀을 때의 동작을 추가하세요.
-            // 예를 들어, 모달 창 열기, 신고 양식 보이기 등의 동작을 구현할 수 있습니다.
-            console.log("팀 신고하기 기능 구현");
+        // 신고하기
+        function reportList(postId) {
+            const userId = '<%= user %>';
+            if(userId === ''){
+                alert('로그인 해주세요.');
+                return;
+            }
+            const xhr = new XMLHttpRequest();
+            
+            xhr.open('POST', '/ku_list/report', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        // 신고 결과 표시
+                        alert(response.message);
+                    } else {
+                        console.error('Error: ' + xhr.status);
+                    }
+                }
+            };
+            
+            xhr.send('postId=' + encodeURIComponent(postId) + 
+                        '&userId=' + encodeURIComponent(userId));
         }
     </script>
 
