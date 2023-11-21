@@ -13,10 +13,16 @@ class KU_list {
     connection.query(query, callback);
   }
 
-    // 특정 유저 가져오기
+    // 특정 글 가져오기
   getListById(listId, callback) {
     const query = 'SELECT * FROM ku_list WHERE id = ?';
     connection.query(query, [listId], callback);
+  }
+
+  // 신고 수 증가
+  increaseReportCount(postId, callback) {
+    const query = 'UPDATE ku_list SET report = report + 1 WHERE id = ?';
+    connection.query(query, [postId], callback);
   }
 
   // 업데이트
