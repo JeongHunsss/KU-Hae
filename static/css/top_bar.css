@@ -87,9 +87,10 @@ body {
   text-align: center;
 }
 
-.chat-container {
+.chatting-container {
   position: absolute;
-  right: 30px; 
+  right: 45px; 
+  font-size: 1.8rem;
 }
 
 #sidebar {
@@ -153,6 +154,15 @@ body {
   padding: 8px 12px;
   border-radius: 8px;
   max-width: 70%;
+}
+
+#chat-window.resizable {
+  resize: both;
+  overflow: auto;
+}
+
+.draggable {
+  cursor: move;
 }
 
 .user-message {
