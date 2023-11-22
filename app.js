@@ -40,7 +40,7 @@ app.use('/ku_list', ku_listRouter);
 app.use('/notice_list', notice_listRouter);
 app.use('/chat_page', chat_pageRouter);
 app.use('/my_page', my_pageRouter);
-app.use('/post_list', contest_listRouter);
+app.use('/contest_list', contest_listRouter);
 app.use('/report_list', report_listRouter);
 app.use('/qna', qnaRouter);
 
