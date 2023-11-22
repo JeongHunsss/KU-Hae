@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/my_page.css">
+    <title>내 정보</title>
+</head>
+
+<body>
+
+    <%-include('top_bar.ejs')%>
+
+    <div class="container">
+
+        <div class="profile-section">
+            <div class="profile-image">
+                <img src="/images/ku.png" alt="KU">
+            </div>
+
+            <div class="my_page name">
+                <h2>사용자 이름</h2>
+                <div class="passion-style">
+                    열정도
+                </div>
+                <div class="passion-meter">
+                    <div class="passion-meter-fill" style="width: 50%;"></div>
+                </div>
+                <h4>이메일 주소: user@example.com</h4>
+            </div>
+        </div>
+
+        <div class="flex-container">
+            <div class="my-listings">
+                <h2>나의 목록</h2>
+                <p><strong>(1)</strong>2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
+                <p><strong>(2)</strong> 창의적인 아이디어 공모전</p>
+                <p><strong>(2)</strong> 2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
+                <p><strong>(2)</strong>2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
+                <p><strong>(2)</strong>2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
+                <p><strong>(2)</strong>2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
+                <p><strong>(2)</strong>2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
+                <p><strong>(2)</strong>2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
+                <p><strong>(2)</strong>2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
+                <p><strong>(2)</strong>2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
+                <p><strong>(2)</strong>2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
+                <p><strong>(2)</strong>2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
+                <p><strong>(2)</strong>2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
+            </div>
+
+            <div class="requests">
+                <h2>들어온 요청</h2>
+                <p><strong>(1)</strong> PJH님이 '한식 요리 공모전'에 참여를 요청하였습니다.</p>
+                <p><strong>(2)</strong> HYL님이 '고급 웹프로그래밍 팀플 활동'에 참여를 요청하였습니다.</p>
+            </div>
+        </div>
+
+        <button class="change-password-button">비밀번호 변경</button>
+
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; KU-HAE</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
