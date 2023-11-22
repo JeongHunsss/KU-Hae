@@ -75,6 +75,11 @@ body {
   font-size: 1.3em; 
 }
 
+#userId{
+  color: rgb(6, 226, 234);
+  font-size: 1.0em; 
+}
+
 .user-info span {
   font-weight: bold;
   white-space: nowrap;

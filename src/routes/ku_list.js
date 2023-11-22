@@ -2,19 +2,19 @@ const express = require('express');
 const router = express.Router();
 
 const ku_listController = require('../controllers/KU_listController');
+const userController = require('../controllers/UserController');
 
 router.get('/', ku_listController.PageOpen);
 
 router.get('/add', (req, res) => {
-  const user = req.session.user;
-  res.render('ku_add', {user});
+  res.render('ku_add', {user: req.session.user});
 });
-
-router.get('/detail', (req, res) => {
-  const user = req.session.user;
-  res.render('ku_detail', {user});
-});
+router.get('/edit', ku_listController.EditListPage);
 
 router.post('/report', ku_listController.ReportList);
+router.post('/add', ku_listController.AddList);
+router.post('/edit', ku_listController.EditList);
+router.post('/delete', ku_listController.DeleteList);
+router.post('/uppassion', userController.UpPassion);
 
   module.exports = router;

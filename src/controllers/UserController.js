@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Passion_log = require('../models/Passion_log')
 const bcrypt = require('bcrypt');
 const saltRounds = 10; // 솔트를 생성하는 데 사용되는 라운드 수
 
@@ -89,3 +90,35 @@ exports.getUserById = (req, res) => {
   });
 };
 
+// 열정도 증가
+exports.UpPassion = (req, res) => {
+  const user = new User();
+  const passion_log = new Passion_log();
+  
+  const passionData = {
+    sender: req.body.sender,
+    receiver: req.body.receiver
+  };
+
+  passion_log.getLogById(passionData.sender, passionData.receiver, (err, passionLog) => {
+    if (err) {
+      console.error('로그 가져오기 오류:', err);
+      res.status(500).json({ error: '로그 가져오기 실패' });
+    } else {
+      if (passionLog.length > 0) {
+        res.status(200).json({ message: '이미 올린 유저입니다.' });
+      } else {
+        // 로그가 없으면 로그를 생성 후 열정도를 증가시킴
+        passion_log.createLog(passionData);
+        user.increasePassionScore(passionData.receiver, (increaseErr) => {
+          if (increaseErr) {
+            console.error('신고 수 증가 오류:', increaseErr);
+            res.status(500).json({ error: '열정도 증가 실패' });
+          } else {
+            res.status(200).json({ message: '증가 완료' });
+          }
+        });
+      }
+    }
+  });
+};
