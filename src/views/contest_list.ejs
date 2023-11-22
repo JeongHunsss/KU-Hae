@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/ku_list.css">
+    <title>KU해 팀구하기</title>
+</head>
+
+<body>
+    <%-include('top_bar.ejs')%>
+
+    <header>
+        <h1>여기서 팀 KU해</h1>
+    </header>
+
+    <div class="search-container">
+        <input type="text" class="search-input" placeholder="검색어를 입력하세요">
+        <button class="search-button">검색</button>
+    </div>
+
+    <section>
+        
+        <% lists.forEach((item, index) => { %>
+            <div class="team-card">
+                <div id="reported-count">신고 수: <%= item.report %></div>
+                <h3><%= item.title %></h3>
+                <div class="team-info2">
+                    <h5>[<%= item.is_Online %>] [<%= item.subject %>]</h5>
+                </div>
+               
+                <h5><%= item.content %></h5>
+                <button class="matching">매칭하기</button>
+                <button onclick="" class="heart-icon">&#10084;</button>
+                <button onclick="reportList(<%= item.id %>)" class="report-button">🚨</button>
+
+                <div class="team-buttons">
+                    <button onclick="editList(this)" class="edit-button">수정</button>
+                    <button onclick="deleteList(this)" class="delete-button">삭제</button>
+                </div>
+
+
+                <div class="team-info">
+                    <h5>작성자: <%= item.author %></h5>
+                    <% const createDate = new Date(item.create_date); %>
+                    <% const formattedDate = `${createDate.getFullYear()}. ${createDate.getMonth() + 1}. ${createDate.getDate()}`; %>
+                    <h5><%= formattedDate %></h5>
+                </div>
+            </div>
+        <% }); %>
+    </section>
+
+    <div class="button-container">
+        <button class="write-button" onclick="location.href='/ku_list/add'">글쓰기</button>
+    </div>
+
+    <div class="pagination">
+        <a href="#">1</a>
+        <a href="#">2</a>
+        <a href="#">3</a>
+    </div>
+
+    <footer>
+        <p>© KU-HAE</p>
+    </footer>
+
+    <script>
+        // 신고하기
+        function reportList(postId) {
+            const userId = '<%= user %>';
+            if(userId === ''){
+                alert('로그인 해주세요.');
+                return;
+            }
+            const xhr = new XMLHttpRequest();
+            
+            xhr.open('POST', '/ku_list/report', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        // 신고 결과 표시
+                        alert(response.message);
+                    } else {
+                        console.error('Error: ' + xhr.status);
+                    }
+                }
+            };
+            
+            xhr.send('postId=' + encodeURIComponent(postId) + 
+                        '&userId=' + encodeURIComponent(userId));
+        }
+    </script>
+
+</body>
+
+</html>
