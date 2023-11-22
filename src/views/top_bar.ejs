@@ -24,13 +24,17 @@
       <div class="navigation2">
         <a href="/post_list">공모전</a>
         <a href="/qna">QnA</a>
-        <a href="/report_list">신고받은 페이지</a>
+        <% if (typeof user !== 'undefined') { %>
+          <% if ( user.is_superuser === 1){ %>
+            <a href="/report_list">신고받은 글</a>
+          <% } %>
+        <% } %>
       </div>
     </div>
     <div class="user-info">
       <% if (typeof user !== 'undefined') { %>
         <% if (user) { %>
-          <span><a href="/my_page"><%= user %></a>님 반갑습니다</span>
+          <span><a href="/my_page"><span id="userId"><%= user.user_id %></span></a>님 반갑습니다</span>
           <a href="/login/logout">로그아웃</a>
         <% } else { %>
           <a href="/login">로그인</a>
@@ -94,18 +98,8 @@
       var userContainer = document.querySelector('.user-info');
 
       if (userContainer) {
-        if (isUserLoggedIn()) {
-          userContainer.style.marginLeft = '90px';
-        } else {
           userContainer.style.marginLeft = '350px';
-        }
       }
-    }
-
-    function isUserLoggedIn() {
-      // 여기에 로그인 여부를 확인하는 로직을 추가하세요
-      // 예를 들어, 로그인된 경우에는 true를 반환하고, 그렇지 않으면 false를 반환하도록 구현
-      return false; // 예시: 로그인되지 않은 상태
     }
 
     var isChatListOpen = false;
