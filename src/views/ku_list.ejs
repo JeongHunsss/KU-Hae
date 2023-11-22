@@ -16,8 +16,14 @@
     </header>
 
     <div class="search-container">
-        <input type="text" class="search-input" placeholder="검색어를 입력하세요">
-        <button class="search-button">검색</button>
+        <select id="category" name="category">
+            <option value="전체">전체</option>
+            <option value="공모전">공모전</option>
+            <option value="스터디">스터디 모임</option>
+            <option value="조별과제">조별과제</option>
+            <option value="기타">기타</option>
+          </select>
+        <button class="search-button" onclick="searchList()">검색</button>
     </div>
 
     <section>
@@ -25,21 +31,24 @@
         <% lists.forEach((item, index) => { %>
             <div class="team-card">
                 <div id="reported-count">신고 수: <%= item.report %></div>
-                <h3><%= item.title %></h3>
+                <h2><%= item.title %></h3>
                 <div class="team-info2">
-                    <h5>[<%= item.is_Online %>] [<%= item.subject %>]</h5>
+                    <h4>[<%= item.is_Online %>] [<%= item.category %>]</h4>
                 </div>
                
-                <h5><%= item.content %></h5>
+                <h4><%= item.content %></h5>
                 <button class="matching">매칭하기</button>
-                <button onclick="" class="heart-icon">&#10084;</button>
+                <button onclick="upPassion('<%= item.author %>')" class="heart-icon">&#10084;</button>
                 <button onclick="reportList(<%= item.id %>)" class="report-button">🚨</button>
-
-                <div class="team-buttons">
-                    <button onclick="editList(this)" class="edit-button">수정</button>
-                    <button onclick="deleteList(this)" class="delete-button">삭제</button>
-                </div>
-
+            
+            <% if ( typeof user !== 'undefined') { %>
+                <% if ( user.user_id  ===  item.author || user.is_superuser === 1 ){ %>
+                    <div class="team-buttons">
+                        <button onclick="editList(<%= item.id %>)" class="edit-button">수정</button>
+                        <button onclick="deleteList(<%= item.id %>)" class="delete-button">삭제</button>
+                    </div>
+                <% } %>
+            <% } %>
 
                 <div class="team-info">
                     <h5>작성자: <%= item.author %></h5>
@@ -51,47 +60,127 @@
         <% }); %>
     </section>
 
-    <div class="button-container">
-        <button class="write-button" onclick="location.href='/ku_list/add'">글쓰기</button>
-    </div>
+    <% if ( typeof user !== 'undefined') { %>
+        <div class="button-container">
+            <button class="write-button" onclick="location.href='/ku_list/add'">글쓰기</button>
+        </div>
+    <% } %>
 
     <div class="pagination">
-        <a href="#">1</a>
-        <a href="#">2</a>
-        <a href="#">3</a>
+        <% for (let i = 1; i <= totalPages; i++) { %>
+            <a href="#" onclick="changePage(<%= i %>)"><%= i %></a>
+        <% } %>
     </div>
 
-    <footer>
-        <p>© KU-HAE</p>
-    </footer>
-
     <script>
-        // 신고하기
-        function reportList(postId) {
-            const userId = '<%= user %>';
-            if(userId === ''){
-                alert('로그인 해주세요.');
+        // 검색
+        function searchList() {
+            const category = document.getElementById('category').value;
+            if(category === '전체'){
+                window.location.href='/ku_list';
                 return;
             }
+            window.location.href=`/ku_list?category=${category}`;
+        }
+
+        // 페이지 변경
+        function changePage(pageNumber) {
+            const category = '<%= category %>';
+            
+            if(category === '전체'){
+                window.location.href=`/ku_list?page=${pageNumber}`;
+                return;
+            }
+            window.location.href = `/ku_list?page=${pageNumber}&category=${encodeURIComponent(category)}`;
+        }
+
+        // 수정 버튼
+        function editList(listId){
+            window.location.href = `/ku_list/edit?listId=${listId}`;
+        }
+
+        // 삭제 버튼
+        function deleteList(listId) {
             const xhr = new XMLHttpRequest();
             
-            xhr.open('POST', '/ku_list/report', true);
+            xhr.open('POST', '/ku_list/delete', true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
                         const response = JSON.parse(xhr.responseText);
-                        // 신고 결과 표시
+                        // 결과 표시
                         alert(response.message);
+                        window.location.reload();
                     } else {
                         console.error('Error: ' + xhr.status);
                     }
                 }
             };
             
-            xhr.send('postId=' + encodeURIComponent(postId) + 
-                        '&userId=' + encodeURIComponent(userId));
+            xhr.send('listId=' + encodeURIComponent(listId));
+        }
+
+        // 열정도 증가
+        function upPassion(receiver) {
+            '<% if( typeof user !== "undefined") { %>'
+                const sender = '<%= user.user_id %>';
+
+                const xhr = new XMLHttpRequest();
+            
+                xhr.open('POST', '/ku_list/uppassion', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            const response = JSON.parse(xhr.responseText);
+                            // 결과 표시
+                            alert(response.message);
+                            window.location.reload();
+                        } else {
+                            console.error('Error: ' + xhr.status);
+                        }
+                    }
+                };
+                
+                xhr.send('sender=' + encodeURIComponent(sender) + 
+                            '&receiver=' + encodeURIComponent(receiver));
+            '<% } else { %>'
+                    alert('로그인 해주세요.');
+                    return;
+            '<% } %>'
+        }
+
+        // 신고하기
+        function reportList(postId) {
+            '<% if( typeof user !== "undefined") { %>'
+                const userId = '<%= user.user_id %>';
+                const xhr = new XMLHttpRequest();
+            
+                xhr.open('POST', '/ku_list/report', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            const response = JSON.parse(xhr.responseText);
+                            // 신고 결과 표시
+                            alert(response.message);
+                            window.location.reload();
+                        } else {
+                            console.error('Error: ' + xhr.status);
+                        }
+                    }
+                };
+                
+                xhr.send('postId=' + encodeURIComponent(postId) + 
+                            '&userId=' + encodeURIComponent(userId));                
+            '<% } else { %>'
+                    alert('로그인 해주세요.');
+                    return;
+            '<% } %>'
         }
     </script>
 
