@@ -65,6 +65,17 @@ loginUser(userId, password, callback) {
     });
   }
 
+  // 열정도 증가
+  increasePassionScore(userId, callback) {
+    const query = 'UPDATE users SET passion_score = passion_score + 1 WHERE user_id = ?';
+    connection.query(query, [userId], callback);
+  }
+
+  // 열정도 감소
+  decreasePassionScore(userId, callback) {
+    const query = 'UPDATE users SET passion_score = passion_score - 1 WHERE user_id = ?';
+    connection.query(query, [userId], callback);
+  }
 
   // 연결 종료
   closeConnection() {
