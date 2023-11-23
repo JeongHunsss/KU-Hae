@@ -6,6 +6,7 @@
   <link rel="stylesheet" type="text/css" href="/css/ku_add.css">
   <title>KU해 팀구하기 글쓰기</title>
 </head>
+
 <body>
 
 <%-include('top_bar.ejs')%>
@@ -14,115 +15,36 @@
     <div class="titlecontainer">
         <h2>팀 KU하기</h2>
     </div>
+    <form action="submit_post.php" method="post">
       <label for="title">제목</label>
-      <% if (typeof list !== 'undefined') { %>
-        <input type="text" id="title" name="title" value="<%= list[0].title %>" required>
-      <% } else { %>
-        <input type="text" id="title" name="title" required>
-      <% } %>
+      <input type="text" id="title" name="title" required>
 
       <label for="category">카테고리</label>
       <select id="category" name="category" required>
-        <option value="공모전">공모전</option>
-        <option value="스터디">스터디 모임</option>
-        <option value="조별과제">조별과제</option>
-        <option value="기타">기타</option>
+        <option value="contest">공모전</option>
+        <option value="study">스터디 모임</option>
+        <option value="individual_meeting">조별과제</option>
+        <option value="etc">기타</option>
       </select>
 
-      <label for="meeting_type">온/오프라인</label>
+      <label for="meeting_type">팀 유형</label>
       <select id="meeting_type" name="meeting_type" required>
-        <option value="온라인">온라인</option>
-        <option value="오프라인">오프라인</option>
+        <option value="online">온라인</option>
+        <option value="offline">오프라인</option>
       </select>
 
       <label for="content">내용</label>
-      <% if (typeof list !== 'undefined') { %>
-        <textarea id="content" name="content" rows="8" required><%= list[0].content %></textarea>
-      <% } else { %>
-        <textarea id="content" name="content" rows="8" required></textarea>
-      <% } %>
+      <textarea id="content" name="content" rows="8" required></textarea>
 
-      <% if (typeof list !== 'undefined') { %>
-        <button type="submit" onclick="EditList()">수정하기</button>
-      <% } else { %>
-        <button type="submit" onclick="AddList()">글쓰기</button>
-      <% } %>
+      <div class="button-container">
+        <button type="submit">글쓰기</button>
+      </div>
+    </form>
   </div>
 
     <footer>
     <p>© KU-HAE</p>
     </footer>
 
-    <script>
-      // 글쓰기
-      function AddList() {
-            const title = document.getElementById('title').value;
-            const content = document.getElementById('content').value;
-            const category = document.getElementById('category').value;
-            const meeting_type = document.getElementById('meeting_type').value;
-            const author = '<%= user %>';
-            const xhr = new XMLHttpRequest();
-            
-            xhr.open('POST', '/ku_list/add', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        const response = JSON.parse(xhr.responseText);
-                        // 글쓰기 결과
-                        alert(response.message);
-                        window.location.href='/ku_list';
-                    } else {
-                        console.error('Error: ' + xhr.status);
-                    }
-                }
-            };
-            
-            xhr.send('title=' + encodeURIComponent(title) + 
-                        '&content=' + encodeURIComponent(content) +
-                        '&meeting_type=' + encodeURIComponent(meeting_type) +
-                        '&category=' + encodeURIComponent(category) +
-                        '&author=' + encodeURIComponent(author));
-        }
-
-      // 수정하기
-      function EditList() {
-          '<% if( typeof list !== "undefined") { %>'
-            const listId = '<%= list[0].id %>'
-          '<% } %>'
-            const title = document.getElementById('title').value;
-            const content = document.getElementById('content').value;
-            const category = document.getElementById('category').value;
-            const meeting_type = document.getElementById('meeting_type').value;
-          '<% if( typeof list !== "undefined") { %>'
-            const author = '<%= list[0].author %>';
-          '<% } %>'
-            const xhr = new XMLHttpRequest();
-            
-            xhr.open('POST', '/ku_list/edit', true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        const response = JSON.parse(xhr.responseText);
-                        // 글쓰기 결과
-                        alert(response.message);
-                        window.location.href='/ku_list';
-                    } else {
-                        console.error('Error: ' + xhr.status);
-                    }
-                }
-            };
-            
-            xhr.send('listId=' + encodeURIComponent(listId) +
-                        '&title=' + encodeURIComponent(title) + 
-                        '&content=' + encodeURIComponent(content) +
-                        '&meeting_type=' + encodeURIComponent(meeting_type) +
-                        '&category=' + encodeURIComponent(category) +
-                        '&author=' + encodeURIComponent(author));
-        }
-    </script>
 </body>
 </html>
