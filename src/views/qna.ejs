@@ -5,40 +5,55 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="/css/qna.css">
+  <title>KU해 QnA</title>
 </head>
 
 <body>
 
-    <%-include('top_bar.ejs')%>
-    
-  <div class="section-wrapper">
-    <section class="notice">
-      <h2>KU해 QnA</h2>
+  <%-include('top_bar.ejs')%>
+  
+  <header>
+    <h1>QnA KU해</h1>
+  </header>
 
-      <a href="/write_page" class="write-button">글쓰기</a>
-    </section>
+  <div class="button-container">
+    <button class="write-button" onclick="goToWritePage()">글쓰기</button>
   </div>
 
-  <div class="notice-item">
+  <div class="search-container">
+    <select id="category" name="category">
+      <option value="전체">전체</option>
+      <option value="공모전">공모전</option>
+      <option value="스터디">스터디 모임</option>
+      <option value="조별과제">조별과제</option>
+      <option value="기타">기타</option>
+    </select>
+    <button class="search-button" onclick="searchList()">검색</button>
+  </div>
+
+  <div class="qna-item">
     <h3>11/23 업데이트 진행 시간</h3>
     <p class="date">2023-11-15</p>
     <p>예정된 업데이트는 몇 시간 동안 진행되나요?</p>
+    <p class="author">작성자: 한유림</p>
   </div>
-  <div class="notice-item">
+  <div class="qna-item">
     <h3>11/23 업데이트 진행 시간</h3>
     <p class="date">2023-11-10</p>
     <p>예정된 업데이트는 몇 시간 동안 진행되나요?</p>
+    <p class="author">작성자: 박정훈</p>
   </div>
-  <div class="notice-item">
+  <div class="qna-item">
     <h3>11/23 업데이트 진행 시간</h3>
     <p class="date">2023-11-05</p>
     <p>예정된 업데이트는 몇 시간 동안 진행되나요?</p>
+    <p class="author">작성자: 111</p>
   </div>
 
   <div class="pagination">
-    <a href="#">1</a>
-    <a href="#">2</a>
-    <a href="#">3</a>
+    <a href="#" onclick="changePage(1)">1</a>
+    <a href="#" onclick="changePage(2)">2</a>
+    <a href="#" onclick="changePage(3)">3</a>
   </div>
 
   <footer>
