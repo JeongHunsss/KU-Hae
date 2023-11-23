@@ -1,193 +1,113 @@
-header {
-    color: #000000;
-    padding: 10px;
-    text-align: center;
-}
+    header {
+            color: #000000;
+            padding: 10px;
+            text-align: center;
+        }
 
-.search-container {
-    display: flex;
-    justify-content: right;
-    margin-right: 80px;
-}
+    .search-container {
+        display: flex;
+        justify-content: right;
+        margin-right: 80px;
+    }
 
-.search-input {
-    padding: 15px 33px;
-    border: 1px solid #ccc;
-    border-radius: 5px 0 0 5px;
-    font-size: 1.0rem;
-}
+    .search-input {
+        padding: 15px 33px;
+        border: 1px solid #ccc;
+        border-radius: 5px 0 0 5px;
+        font-size: 1.0rem;
+    }
 
-.search-button {
-    background-color: #646262;
-    color: white;
-    border: 1px solid #646262;
-    border-radius: 0 5px 5px 0;
-    padding: 10px 15px;
-    cursor: pointer;
-}
+    .search-button {
+        background-color: #646262;
+        color: white;
+        border: 1px solid #646262;
+        border-radius: 0 5px 5px 0;
+        padding: 10px 15px;
+        cursor: pointer;
+    }
 
-.search-button:hover {
-    background-color: #4c5baf;
-}
+    .search-button:hover {
+        background-color: #4c5baf;
+    }
 
+    body {
+        font-family: 'SOYOMapleBoldTTF', sans-serif;
+        padding: 10 90px;
+        height: 800px;
+    }
 
-body {
-    font-family: 'SOYOMapleBoldTTF', sans-serif;
-    padding: 10 90px;
-    height: 800px;
-}
+    @font-face {
+        font-family: 'SOYOMapleBoldTTF';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/SOYOMapleBoldTTF.woff2') format('woff2');
+        font-weight: 700;
+        font-style: normal;
+    }
 
-@font-face {
-    font-family: 'SOYOMapleBoldTTF';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/SOYOMapleBoldTTF.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
-}
-
-section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding: 5px;
-}
-
-
+    section {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        padding: 5px;
+    }
 
     .team-card {
-        width: 300px;
+        width: calc(33.33% - 40px);
+        box-sizing: border-box;
         position: relative;
         border: 1px solid #ddd;
-        padding: 15px;
+        padding: 45px;
         margin: 10px;
         border-radius: 5px;
-    }
-
-    .team-card button {
-        border: none;
-        background-color: rgb(109, 110, 112);
-        color: rgb(255, 255, 255);
-        padding: 10px 20px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 16px;
-        margin: 4px 2px;
-        cursor: pointer;
-    }
-
-.matching:hover {
-    background-color: rgb(69, 95, 160);
-}
-
-.heart-icon:hover {
-    background-color: #ff0000;
-}
-
-.report-button:hover {
-    background-color: #ff0000;
-}
-
-.team-info {
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.team-info h5 {
-    margin: 0;
-}
-
-.team-info2 {
-    margin-top: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.team-info2 h5 {
-    margin: 0;
-}
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-.pagination a {
-    color: #333;
-    padding: 10px;
-    text-decoration: none;
-    margin: 0 5px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-top: auto;
-}
-
-footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-}
-
-.button-container {
-    display: flex;
-    justify-content: flex-end; /* Align items to the right */
-    margin-right: 80px;
-    margin-top: 10px;
-    bottom: 100px;
-    position:absolute;
-    right: 10px;
-
-}
-
-.write-button {
-    background-color: #646262;
-    color: white;
-    border: 1px solid #646262;
-    border-radius: 5px;
-    padding: 13px 50px;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-top: 12px;
-    right: 400px;
-    z-index: 1;
-}
-
-.write-button:hover {
-    background-color: #334294; /* Change color on hover as needed */
-}
-
-#reported-count {
-        position: absolute;
+        word-wrap: break-word;
         top: 20px;
-        right: 25px;
-        color: #ff0000;
+        bottom: 20px;
     }
 
-
-
-    .team-buttons .edit-button {
-        background-color: rgb(69, 95, 160) !important;
-        color: white;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        margin-right: 5px;
-        cursor: pointer;
+    .team-info {
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
-    
-    .team-buttons .delete-button {
-        background-color: #ff0000 !important;
-        color: white;
+
+    .team-info h4 {
+        margin: 0;
+    }
+
+    .team-info2 {
+        margin-top: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .team-info2 h5 {
+        margin: 0;
+    }
+
+    .pagination {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        bottom: 100px; 
+    }
+
+    .pagination a {
+        color: #333;
         padding: 10px;
-        border: none;
+        text-decoration: none;
+        margin: 0 5px;
+        border: 1px solid #ddd;
         border-radius: 5px;
-        margin-right: 5px;
-        cursor: pointer;
+        margin-top: auto;
+    }
+
+    footer {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+        width: 100%;
+        position: fixed;
+        bottom: 0;
     }
