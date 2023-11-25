@@ -34,7 +34,7 @@
     <div class="user-info">
       <% if (typeof user !== 'undefined') { %>
         <% if (user) { %>
-          <span><a href="/my_page"><span id="userId"><%= user.user_id %></span></a>님 반갑습니다</span>
+          <span><a href="/my_page?userId=<%= user.user_id %>"><span id="userId"><%= user.user_id %></span></a>님 반갑습니다</span>
           <a href="/login/logout">로그아웃</a>
         <% } else { %>
           <a href="/login">로그인</a>
