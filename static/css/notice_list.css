@@ -49,10 +49,12 @@ h2 {
   position: relative;
   left: 180px;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 h3 {
   color: #333;
+  word-wrap: break-word;
 }
 
 .date {
