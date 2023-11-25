@@ -1,4 +1,4 @@
-body {
+ body {
     margin: 0;
     font-family: 'SOYOMapleBoldTTF', sans-serif;
   }
@@ -113,7 +113,8 @@ body {
     top: 27%;
     left: 50%;
     transform: translateX(-50%);
-    width: 60%; 
+    width: 80%; 
+    height: 56%;
     background-color: #f5f5f5;
     border: 2px solid #3498db;
     border-radius: 10px;
@@ -142,17 +143,21 @@ body {
   }
 
   #chat-box {
-    width: 90%;
-    overflow: hidden;
-    margin-top: 10px;
-    display: flex;
-    flex-direction: column;
-    max-height: 2000px;
-    padding:20px;
-    margin-right: 10px;
-    margin-left:50px;
-    height: 300px;
-  }
+  width: 90%;
+  overflow: hidden;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 60px;
+  margin-right: 10px;
+  margin-left: 50px;
+  top: 50px;
+  padding: 20px;
+  height: 400px;
+  position: absolute;
+  display: flex; /* 추가 */
+  flex-direction: column; /* 추가 */
+}
 
   .chat-bubble {
     display: flex;
@@ -195,31 +200,38 @@ body {
     margin-right:70px;
   }
 
-  #message-input {
-    width: 75%;
-    padding: 1.6%;
-    margin-left: 6px;
-    margin-bottom: 6px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-right: 1px;
-    resize: both;
-  }
+ #message-input {
+  width: 80%;
+  padding: 1.6%;
+  margin-left: 6px;
+  margin-bottom: 6px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 1px;
+  resize: both;
+  display: inline-block;
+}
 
-  #send-button {
-    width: 20%;
-    background-color: #3498db;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
+#send-button {
+  width: 8%;
+  height: 12%;
+  background-color: #3498db;
+  color: white;
+  padding: 13px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  top: 335px;
+  left: 800px;
+  position: absolute;
+  align-items: flex-end;
 
-  #send-button:hover {
-    background-color: #ccc;
-  }
+}
+
+
+#send-button:hover {
+  background-color: #ccc;
+}
 
   #emoji-button {
     cursor: pointer;
@@ -235,10 +247,10 @@ body {
 
   #chat-window-title {
     font-size: 1.5em;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     text-align: center;
     font-weight: bold;
-    margin-top:25px;
+    margin-top:30px;
   }
 
   @media (max-width: 1600px) {
@@ -267,4 +279,22 @@ body {
       left: 300px;
       font-size: 0.7em;
     }
+  }
+
+  #exit-chat-button {
+  background-color: #cec7c7; 
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.6em;
+  text-align: flex-end;
+  position: absolute;
+  bottom: 18px; 
+  right: 15px; 
+}
+
+  #exit-chat-button:hover {
+    background-color: #c0392b; 
   }
