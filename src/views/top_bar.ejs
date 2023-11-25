@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="/css/top_bar.css">
-  <title>KU해</title>
+  <title>통합 페이지</title>
 </head>
 
 <body>
@@ -34,7 +34,7 @@
     <div class="user-info">
       <% if (typeof user !== 'undefined') { %>
         <% if (user) { %>
-          <span><a href="/my_page"><span id="userId"><%= user.user_id %></span></a>님 반갑습니다</span>
+          <span><a href="/my_page?userId=<%= user.user_id %>"><span id="userId"><%= user.user_id %></span></a>님 반갑습니다</span>
           <a href="/login/logout">로그아웃</a>
         <% } else { %>
           <a href="/login">로그인</a>
@@ -43,7 +43,7 @@
         <a href="/login">로그인</a>
       <% } %>
     </div>
-
+    
     <div class="chatting-container">
       <span id="emoji-button" onclick="toggleChatList()">🧐</span>
     </div>
@@ -53,101 +53,37 @@
     <div id="sidebar">
       <h3>채팅 목록</h3>
       <ul id="chat-list">
-        <li class="chat-item" onclick="showChatWindow('friend1')">친구 1</li>
-        <li class="chat-item" onclick="showChatWindow('friend2')">친구 2</li>
-        <li class="chat-item" onclick="showChatWindow('friend3')">친구 3</li>
-        <li class="chat-item" onclick="showChatWindow('friend4')">친구 4</li>
-        <li class="chat-item" onclick="showChatWindow('friend5')">친구 5</li>
-        <li class="chat-item" onclick="showChatWindow('friend6')">친구 6</li>
-        <li class="chat-item" onclick="showChatWindow('friend7')">친구 7</li>
-        <li class="chat-item" onclick="showChatWindow('friend8')">친구 8</li>
-        <li class="chat-item" onclick="showChatWindow('friend9')">친구 9</li>
+        <% if (typeof rooms !== 'undefined') { %>
+          <% rooms.forEach((item, index) => { %>
+            <li class="chat-item" onclick="showChatWindow('friend1')"><%= item.room_id %>번 채팅방</li>
+          <% }); %>
+        <% } else { %>
+          <li class="chat-item">채팅방이 없습니다.</li>
+        <% } %>
       </ul>
     </div>
 
     <div id="chat-window" class="resizable draggable">
-      <div id="close-button" onclick="closeChatWindow()">✖</div>
-      <div id="chat-window-title">채팅</div>
       <div id="chat-box">
         <div class="chat-bubble user-message">
-          <p>안녕!</p>
+          <p>안녕하세요!</p>
         </div>
         <div class="chat-bubble friend-message">
           <p>안녕하세요! 어떻게 지내세요?</p>
         </div>
         <div class="chat-bubble user-message">
-          <p>저는 잘 지내고 있어요 :D</p>
+          <p>잘 지내고 있어요.</p>
         </div>
         <div class="chat-bubble friend-message">
           <p>잘 지내고 있어서 다행이에요.</p>
         </div>
-      </div>
-      <div>
-        <input type="text" id="message-input" placeholder="메시지를 입력하세요">
+        <textarea id="message-input" placeholder="메시지를 입력하세요"></textarea>
         <button id="send-button" onclick="sendMessage()">전송</button>
       </div>
     </div>
   </div>
 
   <script>
-
-window.addEventListener('DOMContentLoaded', (event) => {
-      adjustUserPosition();
-      window.addEventListener('resize', adjustUserPosition);
-    });
-
-    function adjustUserPosition() {
-      var topBar = document.getElementById('topBar');
-      var userContainer = document.querySelector('.user-info');
-
-      if (userContainer) {
-        userContainer.style.marginLeft = '350px';
-      }
-    }
-
-    var isChatListOpen = false;
-
-    function showChatWindow(friend) {
-      var chatWindow = document.getElementById('chat-window');
-      var chatWindowTitle = document.getElementById('chat-window-title');
-
-      if (friend) {
-        chatWindow.style.display = 'block';
-        chatWindowTitle.innerText = friend +'님과의 KU해방';
-      }
-    }
-
-    function sendMessage() {}
-
-    function toggleChatList() {
-      var sidebar = document.getElementById('sidebar');
-      isChatListOpen = !isChatListOpen;
-
-      if (isChatListOpen) {
-        sidebar.style.display = 'block';
-      } else {
-        sidebar.style.display = 'none';
-      }
-
-      $(function () {
-        $("#chat-window.resizable").resizable({
-          handles: "se",
-          minHeight: 200,
-          minWidth: 300,
-        });
-
-        $(".draggable").draggable({
-          handle: ".chat-bubble.user-message",
-        });
-      });
-    }
-
-    function closeChatWindow() {
-      var chatWindow = document.getElementById('chat-window');
-      chatWindow.style.display = 'none';
-    }
-
-
     window.addEventListener('DOMContentLoaded', (event) => {
       adjustUserPosition();
       window.addEventListener('resize', adjustUserPosition);
