@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.render('report_list', {user: req.session.user, rooms: req.session.rooms});
-});
+const ku_listController = require('../controllers/KU_listController');
 
-  module.exports = router;
+router.get('/', ku_listController.ReportPageOpen);
+
+module.exports = router;
