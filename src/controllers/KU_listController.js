@@ -53,6 +53,58 @@ exports.PageOpen = (req, res) => {
   }
 };
 
+// 신고된 글 정보 가져오기
+exports.ReportPageOpen = (req, res) => {
+  const perPage = 10; // 페이지당 아이템 수
+  const page = req.query.page || 1; // 페이지 번호, 기본값은 1
+  const category = req.query.category; // 카테고리가 없으면 빈 문자열
+  
+  const ku_list = new KU_list();
+
+  // 검색X (전체 글)
+  if(!category) {
+    ku_list.getAllReportedLists((err, result) => {
+      if (err) {
+        console.error('리스트 불러오기 오류:', err);
+        res.status(500).json({ error: '리스트 불러오기 오류' });
+      } else {
+        const totalList = result.length;
+        // 페이지네이션 페이지 수 계산
+        const totalPages = Math.ceil(totalList / perPage);
+        
+        ku_list.getReportedListsPerPage(perPage, page, (err, lists) => {
+          if (err) {
+            console.error('글 정보 가져오기 오류:', err);
+            res.status(500).json({ error: '글 정보 가져오기 실패' });
+          } else {
+            res.render('ku_list', {lists, user: req.session.user, rooms: req.session.rooms, totalPages, category: '전체'});
+          }
+        });
+      }
+    });
+  } else {  //검색O (특정 카테고리)
+    ku_list.getReportedListByCategory(category, (err, result) => {
+      if (err) {
+        console.error('리스트 불러오기 오류:', err);
+        res.status(500).json({ error: '리스트 불러오기 오류' });
+      } else {
+        const totalList = result.length;
+        // 페이지네이션 페이지 수 계산
+        const totalPages = Math.ceil(totalList / perPage);
+        
+        ku_list.getReportedListsByCategoryPerPage(category, perPage, page, (err, lists) => {
+          if (err) {
+            console.error('글 정보 가져오기 오류:', err);
+            res.status(500).json({ error: '글 정보 가져오기 실패' });
+          } else {
+            res.render('ku_list', {lists, user: req.session.user, rooms: req.session.rooms, totalPages, category});
+          }
+        });
+      }
+    });
+  }
+};
+
 // 글쓰기
 exports.AddList = (req, res) => {
   const ku_list = new KU_list();
