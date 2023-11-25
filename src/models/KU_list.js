@@ -23,6 +23,22 @@ class KU_list {
     connection.query(query, [category, offset, perPage], callback);
   }
 
+  // 신고 페이지네이션 (전체)
+  getReportedListsPerPage(perPage, page, callback) {
+    const offset = (page - 1) * perPage; // 해당 페이지의 시작 오프셋
+  
+    const query = 'SELECT * FROM ku_list WHERE report >= 10 ORDER BY id DESC LIMIT ?, ?';
+    connection.query(query, [offset, perPage], callback);
+  }
+
+  // 신고 페이지네이션 (검색)
+  getReportedListsByCategoryPerPage(category, perPage, page, callback) {
+    const offset = (page - 1) * perPage; // 해당 페이지의 시작 오프셋
+  
+    const query = 'SELECT * FROM ku_list WHERE category = ? AND report >= 10 ORDER BY id DESC LIMIT ?, ?';
+    connection.query(query, [category, offset, perPage], callback);
+  }
+
   // 모든 글 정보 가져오기
   getAllLists(callback) {
     const query = 'SELECT * FROM ku_list';
@@ -38,6 +54,18 @@ class KU_list {
   // 특정 카테고리 글 가져오기
   getListByCategory(category, callback) {
     const query = 'SELECT * FROM ku_list WHERE category = ?';
+    connection.query(query, [category], callback);
+  }
+
+  // 신고된 모든 글 정보 가져오기 
+  getAllReportedLists(callback) {
+    const query = 'SELECT * FROM ku_list WHERE report >= 10';
+    connection.query(query, callback);
+  }
+
+  // 신고된 특정 카테고리 글 가져오기
+  getReportedListByCategory(category, callback) {
+    const query = 'SELECT * FROM ku_list WHERE category = ? AND report >= 10';
     connection.query(query, [category], callback);
   }
 
