@@ -106,13 +106,13 @@ exports.UpPassion = (req, res) => {
       res.status(500).json({ error: '로그 가져오기 실패' });
     } else {
       if (passionLog.length > 0) {
-        res.status(200).json({ message: '이미 올린 유저입니다.' });
+        res.status(200).json({ message: '이미 평가한 유저입니다.' });
       } else {
         // 로그가 없으면 로그를 생성 후 열정도를 증가시킴
         passion_log.createLog(passionData);
         user.increasePassionScore(passionData.receiver, (increaseErr) => {
           if (increaseErr) {
-            console.error('신고 수 증가 오류:', increaseErr);
+            console.error('열정도 증가 오류:', increaseErr);
             res.status(500).json({ error: '열정도 증가 실패' });
           } else {
             res.status(200).json({ message: '증가 완료' });
@@ -122,3 +122,86 @@ exports.UpPassion = (req, res) => {
     }
   });
 };
+
+// 열정도 감소
+exports.DownPassion = (req, res) => {
+  const user = new User();
+  const passion_log = new Passion_log();
+  
+  const passionData = {
+    sender: req.body.sender,
+    receiver: req.body.receiver
+  };
+
+  passion_log.getLogById(passionData.sender, passionData.receiver, (err, passionLog) => {
+    if (err) {
+      console.error('로그 가져오기 오류:', err);
+      res.status(500).json({ error: '로그 가져오기 실패' });
+    } else {
+      if (passionLog.length > 0) {
+        res.status(200).json({ message: '이미 평가한 유저입니다.' });
+      } else {
+        // 로그가 없으면 로그를 생성 후 열정도를 감소시킴
+        passion_log.createLog(passionData);
+        user.decreasePassionScore(passionData.receiver, (increaseErr) => {
+          if (increaseErr) {
+            console.error('열정도 감소 오류:', increaseErr);
+            res.status(500).json({ error: '열정도 감소 실패' });
+          } else {
+            res.status(200).json({ message: '감소 완료' });
+          }
+        });
+      }
+    }
+  });
+};
+
+// 비밀번호 변경
+exports.ChangePassword = (req, res) => {
+  const userId = req.session.user.user_id;
+  const password = req.body.newPassword;
+  
+  const user = new User();
+
+  // bcrypt를 사용하여 비밀번호 해시 생성
+  bcrypt.hash(password, saltRounds, (err, hash) => {
+      if (err) {
+          console.error('비밀번호 해시 생성 오류:', err);
+          res.status(500).json({ PasswordMessage: '해시 생성 실패'});
+      }
+
+      updatedData = {
+          password: hash
+      }
+
+      user.updateUser(userId, updatedData, (err, result) => {
+          if (err) {
+            console.error('회원가입 오류:', err);
+            res.status(500).json({ PasswordMessage: '변경 실패'});
+          } else {
+            res.status(200).json({ PasswordMessage: '변경 성공'});
+          }
+      });
+  });
+}
+
+// 프로필 변경
+exports.UpdateProfile = (req, res) => {
+  const userId = req.session.user.user_id;
+  const profile = req.body.selectedProfile;
+  
+  const user = new User();
+
+  updatedData = {
+      profile_picture: profile
+  }
+
+  user.updateUser(userId, updatedData, (err, result) => {
+      if (err) {
+        console.error('회원가입 오류:', err);
+        res.status(500).json({ ProfileMessage: '변경 실패'});
+      } else {
+        res.status(200).json({ ProfileMessage: '변경 성공'});
+      }
+  });
+}
