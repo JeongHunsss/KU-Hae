@@ -1,8 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.render('my_page', {user: req.session.user});
-});
+const my_pageController = require('../controllers/My_pageController');
+const userController = require('../controllers/UserController');
 
-  module.exports = router;
+
+router.get('/', my_pageController.PageOpen);
+
+router.post('/confirmpassword', my_pageController.ConfirmPassword);
+router.post('/changepassword', userController.ChangePassword);
+router.post('/uppassion', userController.UpPassion);
+router.post('/downpassion', userController.DownPassion);
+router.post('/updateprofile', userController.UpdateProfile);
+
+module.exports = router;
