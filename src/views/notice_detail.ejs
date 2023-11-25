@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/css/notice_detail.css">
+  <title>KU해 공지사항</title>
+</head>
+
+<body>
+
+  <%-include('top_bar.ejs')%>
+
+  <header>
+    <h1>공지사항 KU해</h1>
+  </header>
+
+  <section>
+    <div class="notice-details">
+      <h3>제목: 조금만 더 힘내자<!DOCTYPE html></h3>
+      <p class="detail-info">
+        작성자: <span>한유림</span> | 날짜: <span>2023-11-25</span>
+      </p>
+      <div class="content">
+        고웹 고웹 고웹
+      </div>
+    </div>
+
+    <div class="button-container">
+      <button class="back-button" onclick="goToListPage()">목록으로</button>
+      <button class="edit-button" onclick="goToEditPage()">수정</button>
+      <button class="delete-button" onclick="confirmDelete()">삭제</button>
+    </div>
+
+    <footer>
+        <p>© KU-HAE</p>
+      </footer>
+
+</body>
+
+</html>
