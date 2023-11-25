@@ -37,7 +37,7 @@
                 </div>
                
                 <h4><%= item.content %></h5>
-                <button class="matching">매칭하기</button>
+                    <button onclick="matching('<%= item.author %>', '<%= item.title %>')" class="matching">매칭하기</button>
                 <button onclick="upPassion('<%= item.author %>')" class="heart-icon">&#10084;</button>
                 <button onclick="reportList(<%= item.id %>)" class="report-button">🚨</button>
             
@@ -94,6 +94,37 @@
             window.location.href = `/ku_list?page=${pageNumber}&category=${encodeURIComponent(category)}`;
         }
 
+        // 매칭하기
+        function matching(receiver, title) {
+            '<% if( typeof user !== "undefined") { %>'
+                const sender = '<%= user.user_id %>';
+                
+                const xhr = new XMLHttpRequest();
+                
+                xhr.open('POST', '/chat/createrequest', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            const response = JSON.parse(xhr.responseText);
+                            // 채팅 요청 결과 표시
+                            alert(response.message);
+                        } else {
+                            console.error('Error: ' + xhr.status);
+                        }
+                    }
+                };
+                
+                xhr.send('sender=' + encodeURIComponent(sender) + 
+                        '&receiver=' + encodeURIComponent(receiver) +
+                        '&title=' + encodeURIComponent(title));
+            '<% } else { %>'
+                alert('로그인 해주세요.');
+                return;
+            '<% } %>'
+        }
+
         // 수정 버튼
         function editList(listId){
             window.location.href = `/ku_list/edit?listId=${listId}`;
@@ -129,7 +160,7 @@
 
                 const xhr = new XMLHttpRequest();
             
-                xhr.open('POST', '/ku_list/uppassion', true);
+                xhr.open('POST', '/my_page/uppassion', true);
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         
                 xhr.onreadystatechange = function() {
