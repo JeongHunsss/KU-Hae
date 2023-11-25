@@ -15,6 +15,39 @@ body {
     font-style: normal;
 }
 
+.modal {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f0f0f0;
+    border: 5px solid #333;
+    border-radius: 25px;
+    padding: 100px;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.close {
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.image-list img {
+    width: 200px;
+    margin: 5px;
+    cursor: pointer;
+}
+
 header h1 {
     font-size: 2em;
     margin: 0;
@@ -29,10 +62,53 @@ header h1 {
     gap: 20px;
 }
 
+.search-container {
+    position: absolute;
+    width: 400px;
+    display: flex;
+    justify-content: right;
+    right: 50px;
+    top: 200px;
+}
+
+.search-input {
+    padding: 15px 33px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    font-size: 1.0rem;
+}
+
+.search-button {
+    background-color: #646262;
+    color: white;
+    border: 1px solid #646262;
+    border-radius: 0 5px 5px 0;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #4c5baf;
+}
+
+.message{
+    position: absolute;
+    right: 130px;
+    top: 260px;
+}
+
+.message-red{
+    position: absolute;
+    right: 130px;
+    top: 260px;
+    color: red;
+}
+
 .profile-section {
     display: flex;
     gap: 20px;
     margin-left:20px;
+    width: 500px;
 }
 
 .profile-image {
@@ -42,6 +118,7 @@ header h1 {
     border-radius: 50%;
     overflow: hidden;
     margin-top: 17px;
+    cursor: pointer;
 }
 
 .profile-image img {
@@ -86,6 +163,11 @@ header h1 {
     gap: 20px;
 }
 
+.listing-content,
+.requests-content {
+    overflow-y: auto;
+}
+
 .my-listings,
 .requests {
     background-color: #fff;
@@ -97,15 +179,29 @@ header h1 {
     text-align: center;
 }
 
+.request-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.request-buttons {
+    margin-left: 10px;
+    display: flex;
+    gap: 10px;
+}
+
 .my-listings h2 {
     text-align: center;
     margin-bottom: 10px;
 }
 
 .my-listings p {
-    text-align: center;
+    text-align: left;
     margin: 5px 0;
 }
+
 
 .requests h2 {
     text-align: center;
@@ -123,13 +219,22 @@ header h1 {
     gap: 10px;
 }
 
+.password-change input {
+    width: 200px;
+    height: 20px;
+}
+
 .change-password-button {
-    background-color: #3498db;
+    background-color: #646262;
     color: #fff;
     border: none;
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.change-password-button:hover {
+    background-color: #4c5baf;
 }
 
 footer {
