@@ -245,3 +245,51 @@ footer {
     width: 100%;
     margin-top: 20px;
 }
+
+.up-passion{
+            background-color: rgb(155, 181, 223);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+.down-passion {
+            background-color: rgb(155, 181, 223);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+.up-passion:hover {
+        background-color: red;
+}
+
+.down-passion:hover {
+        background-color: blue;
+}
+
+
+.accept-request,
+        .reject-request {
+            background-color: rgb(155, 181, 223);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .accept-request:hover{
+            background-color: blue;
+        }
+
+       .reject-request:hover {
+            background-color: red;
+        }

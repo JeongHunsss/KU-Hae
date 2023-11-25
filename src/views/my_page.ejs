@@ -39,8 +39,8 @@
                 <div class="passion-meter">
                     <div class="passion-meter-fill" style="width: <%= userData[0].passion_score %>%;"></div>
                 </div><br>
-                <button class="up-passion" onclick="upPassion('<%= userData[0].user_id %>')">업 버튼(디자인 수정 필요)</button>
-                <button class="down-passion" onclick="downPassion('<%= userData[0].user_id %>')">다운 버튼(디자인 수정 필요)</button>
+                <button class="up-passion" onclick="upPassion('<%= userData[0].user_id %>')">UP</button>
+                <button class="down-passion" onclick="downPassion('<%= userData[0].user_id %>')">DOWN</button>
                 <h4>이메일 주소: &nbsp; <%= userData[0].email %>@kku.ac.kr</h4>
             </div>
         </div>
@@ -76,8 +76,8 @@
                         <div class="request-item">
                             <p><strong><%= index+1 %>: &nbsp; </strong><%= item.sender %>님이 '<%= item.list_title %>'에 참여를 요청하였습니다.</p>
                             <div class="request-buttons">
-                                <button class="accept-request" onclick="acceptRequest()">수락(디자인 수정 필요)</button>
-                                <button class="reject-request" onclick="rejectRequest('<%=item.id %>')">거절(디자인 수정 필요)</button>
+                                <button class="accept-request" onclick="acceptRequest()">ACCEPT</button>
+                                <button class="reject-request" onclick="rejectRequest('<%=item.id %>')">DENY</button>
                             </div>
                         </div>
                     <% }); %>
