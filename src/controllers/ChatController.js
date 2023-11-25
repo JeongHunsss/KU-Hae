@@ -29,15 +29,33 @@ exports.acceptRequest = (req, res) => {
     sender: req.body.sender,
     receiver: req.body.receiver
   };
+  const requestId = req.body.requestId;
 
   const chat_rooms = new Chat_rooms();
+  const chat_request = new Chat_request();
 
   chat_rooms.createRoom(roomData, (err, result) => {
     if (err) {
       console.error('방 생성 오류:', err);
-      return res.status(500).json({ message: '방 생성 실패', details: err.message });
+      return res.status(500).json({ message: '요청 수락 실패', details: err.message });
     } else {
-      return res.status(200).json({ message: '방 생성 성공'});
+      chat_request.deleteRequest(requestId, (err, result) => {
+        if (err) {
+          console.error('요청 수락 오류:', err);
+          return res.status(500).json({ message: '요청 수락 실패', details: err.message });
+        } else {
+          // 유저 채팅방 목록 가져오기
+          chat_rooms.getRoomByuserId(req.session.user.user_id, (err, rooms) => {
+            if (err) {
+              console.error('채팅방 가져오기 오류:', err);
+              return res.status(500).json({ message: '채팅방 가져오기 실패', details: err.message });
+            } else {
+              req.session.rooms = rooms;
+              return res.status(200).json({ message: '요청 수락 성공'});
+            }
+          });
+        }
+      });
     }
   });
 };
