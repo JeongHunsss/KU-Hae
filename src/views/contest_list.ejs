@@ -16,71 +16,25 @@
         </header>
 
         <div class="search-container">
-            <select id="category" name="category">
-                <option value="제목">제목</option>
-                <option value="내용">내용</option> 
-                <!-- 내용 필요없으면 지우삼 -->
-            </select>
-            <button class="search-button" onclick="searchList()">검색</button>
+            <input id="searchTitle" class="search-input" name="searchTitle" placeholder="제목을 입력해주세요.">
+            <button class="search-button" onclick="search()">검색</button>
         </div>
 
         <section>
-            <div class="team-card">
-                <div class="profile-section">
-                    <!-- <div class="profile-image">
-                        <img src="/images/ku.png" alt="KU">
-                    </div> 
-                    사진 크롤링할거면 사용하면 됨 -->
+            <% lists.forEach((item, index) => { %>
+                <div class="team-card">
+                    <h2><a href="http://<%= item.url %>"><%= item.title %></a></h2>
+                    <div class="team-info">
+                        <h4><%= item.host %></h4>
+                        <h6><%= item.date %></h6>
+                    </div>
                 </div>
-                <h2>공모전 제목 1</h2>
-                <div class="team-info">
-                    <h4>부서: 상담센터</h4>
-                </div>
-            </div>
-
-            <div class="team-card">
-                <h2>공모전 제목 2</h2>
-                <div class="team-info">
-                    <h4>부서: 상담센터</h4>
-                </div>
-            </div>
-
-
-            <div class="team-card">
-                <h2>공모전 제목 2</h2>
-                <div class="team-info">
-                    <h4>부서: 상담센터</h4>
-                </div>
-            </div>
-
-
-            <div class="team-card">
-                <h2>공모전 제목 2</h2>
-                <div class="team-info">
-                    <h4>부서: 상담센터</h4>
-                </div>
-            </div>
-
-
-            <div class="team-card">
-                <h2>공모전 제목 2</h2>
-                <div class="team-info">
-                    <h4>부서: 상담센터</h4>
-                </div>
-            </div>
-
-
-            <div class="team-card">
-                <h2>공모전 제목 2</h2>
-                <div class="team-info">
-                    <h4>부서: 상담센터</h4>
-                </div>
-            </div>
+            <% }); %>
 
             <div class="pagination">
-                <a href="#" onclick="changePage(1)">1</a>
-                <a href="#" onclick="changePage(2)">2</a>
-                <a href="#" onclick="changePage(3)">3</a>
+                <% for (let i = 1; i <= totalPages; i++) { %>
+                    <a href="#" onclick="changePage(<%= i %>)"><%= i %></a>
+                <% } %>
             </div>
 
             <footer>
@@ -90,6 +44,25 @@
             </footer>
 
         </section>
+
+        <script>
+            // 검색
+            function search() {
+                const searchTitle = document.getElementById('searchTitle').value;
+                window.location.href=`/contest_list?searchTitle=${searchTitle}`;
+            }
+
+            // 페이지 변경
+            function changePage(pageNumber) {
+                const searchTitle = '<%= searchTitle %>';
+                
+                if(searchTitle === '전체'){
+                    window.location.href=`/contest_list?page=${pageNumber}`;
+                    return;
+                }
+                window.location.href = `/contest_list?page=${pageNumber}&searchTitle=${encodeURIComponent(searchTitle)}`;
+            }
+        </script>
 
     </body>
 

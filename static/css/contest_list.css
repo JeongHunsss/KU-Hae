@@ -9,6 +9,7 @@
         display: flex;
         justify-content: right;
         margin-right: 80px;
+        margin-top:-55px;
     }
 
     .search-input {
@@ -90,7 +91,7 @@
         position: absolute;
         display: flex;
         justify-content: center;
-        bottom: 100px; 
+        bottom: 75px;
     }
 
     .pagination a {
