@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="/css/ku_add.css">
+  <link rel="stylesheet" type="text/css" href="/css/notice_add.css">
   <title>KU해 공지사항 글쓰기</title>
 </head>
 
@@ -13,24 +13,94 @@
 
   <div class="container">
     <div class="titlecontainer">
-      <h2>공지사항 KU하기</h2>
+        <h2>공지사항 글쓰기</h2>
     </div>
-    <form action="submit_post.php" method="post">
-      <label for="title">제목</label>
+    <label for="title">제목</label>
+    <% if (typeof list !== 'undefined') { %>
+      <input type="text" id="title" name="title" value="<%= list[0].title %>" required>
+    <% } else { %>
       <input type="text" id="title" name="title" required>
+    <% } %>
 
-      <label for="content">내용</label>
+    <label for="content">내용</label>
+    <% if (typeof list !== 'undefined') { %>
+      <textarea id="content" name="content" rows="8" required><%= list[0].content %></textarea>
+    <% } else { %>
       <textarea id="content" name="content" rows="8" required></textarea>
+    <% } %>
 
-      <div class="button-container">
-        <button type="submit">글쓰기</button>
-      </div>
-    </form>
-  </div>
+    <% if (typeof list !== 'undefined') { %>
+      <button type="submit" onclick="Edit()">수정하기</button>
+    <% } else { %>
+      <button type="submit" onclick="Add()">글쓰기</button>
+    <% } %>
+</div>
 
   <footer>
-    <p>© KU-HAE</p>
+  <p>© KU-HAE</p>
   </footer>
 
+  <script>
+    // 글쓰기
+    function Add() {
+          const title = document.getElementById('title').value;
+          const content = document.getElementById('content').value;
+          const author = '<%= user.user_id %>';
+          const xhr = new XMLHttpRequest();
+          
+          xhr.open('POST', '/notice_list/add', true);
+          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  
+          xhr.onreadystatechange = function() {
+              if (xhr.readyState === XMLHttpRequest.DONE) {
+                  if (xhr.status === 200) {
+                      const response = JSON.parse(xhr.responseText);
+                      // 글쓰기 결과
+                      alert(response.message);
+                      window.location.href='/notice_list';
+                  } else {
+                      console.error('Error: ' + xhr.status);
+                  }
+              }
+          };
+          
+          xhr.send('title=' + encodeURIComponent(title) + 
+                      '&content=' + encodeURIComponent(content) +
+                      '&author=' + encodeURIComponent(author));
+      }
+    // 수정하기
+    function Edit() {
+        '<% if( typeof list !== "undefined") { %>'
+          const noticeId = '<%= list[0].id %>'
+        '<% } %>'
+          const title = document.getElementById('title').value;
+          const content = document.getElementById('content').value;
+        '<% if( typeof list !== "undefined") { %>'
+          const author = '<%= list[0].author %>';
+        '<% } %>'
+          const xhr = new XMLHttpRequest();
+          
+          xhr.open('POST', '/notice_list/edit', true);
+          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  
+          xhr.onreadystatechange = function() {
+              if (xhr.readyState === XMLHttpRequest.DONE) {
+                  if (xhr.status === 200) {
+                      const response = JSON.parse(xhr.responseText);
+                      // 글쓰기 결과
+                      alert(response.message);
+                      window.location.href='/notice_list';
+                  } else {
+                      console.error('Error: ' + xhr.status);
+                  }
+              }
+          };
+          
+          xhr.send('noticeId=' + encodeURIComponent(noticeId) +
+                      '&title=' + encodeURIComponent(title) + 
+                      '&content=' + encodeURIComponent(content) +
+                      '&author=' + encodeURIComponent(author));
+      }
+  </script>
 </body>
 </html>

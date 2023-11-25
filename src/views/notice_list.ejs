@@ -16,49 +16,68 @@
     <h1>KU해 공지사항</h1>
   </header>
 
-  <div class="button-container">
-    <button class="write-button" onclick="goToWritePage()">글쓰기</button>
-  </div>
+  <% if (typeof user !== 'undefined' && user.is_superuser === 1){ %>
+    <div class="button-container">
+      <button class="write-button" onclick="NoticeAdd()">글쓰기</button>
+    </div>
+  <% } %>
 
   <div class="search-container">
-    <select id="category" name="category">
-        <option value="전체">전체</option>
-        <option value="공모전">공모전</option>
-        <option value="스터디">스터디 모임</option>
-        <option value="조별과제">조별과제</option>
-        <option value="기타">기타</option>
-    </select>
-    <button class="search-button" onclick="searchList()">검색</button>
+    <input id="searchTitle" class="search-input" name="searchTitle" placeholder="제목을 입력해주세요.">
+    <button class="search-button" onclick="search()">검색</button>
   </div>
 
-  <div class="notice-item">
-    <h3>새로운 이벤트</h3>
-    <p class="date">2023-11-15</p>
-    <p>참여자들에게 특별한 혜택이 준비되어 있습니다. 확인해보세요!</p>
-    <p class="author">작성자: 한유림</p>
-  </div>
-  <div class="notice-item">
-    <h3>팀 빌딩 워크샵</h3>
-    <p class="date">2023-11-10</p>
-    <p>다가오는 주말에 팀 빌딩 워크샵이 있습니다. 참석 부탁드립니다.</p>
-    <p class="author">작성자: 한유림</p>
-  </div>
-  <div class="notice-item">
-    <h3>시스템 업데이트 안내</h3>
-    <p class="date">2023-11-05</p>
-    <p>웹사이트 시스템이 업데이트되었습니다. 불편하신 점은 고객센터로 문의해주세요.</p>
-    <p class="author">작성자: 한유림</p>
-  </div>
+  <% lists.forEach((item, index) => { %>
+    <div class="notice-item" onclick="NoticeDetail('<%= item.id %>')">
+      <h3><%= item.title %></h3>
+      <% const createDate = new Date(item.create_date); %>
+      <% const formattedDate = `${createDate.getFullYear()}. ${createDate.getMonth() + 1}. ${createDate.getDate()}`; %>
+      <p class="date"><%= formattedDate %></p>
+      <p class="author">작성자: <%= item.author %></p>
+    </div>
+  <% }); %>
+
 
   <div class="pagination">
-    <a href="#" onclick="changePage(1)">1</a>
-    <a href="#" onclick="changePage(2)">2</a>
-    <a href="#" onclick="changePage(3)">3</a>
+    <% for (let i = 1; i <= totalPages; i++) { %>
+        <a href="#" onclick="changePage(<%= i %>)"><%= i %></a>
+    <% } %>
   </div>
 
   <footer>
     <p>© KU-HAE</p>
   </footer>
+
+  <script>
+    // 검색
+    function search() {
+        const searchTitle = document.getElementById('searchTitle').value;
+        window.location.href=`/notice_list?searchTitle=${searchTitle}`;
+    }
+
+    // 페이지 변경
+    function changePage(pageNumber) {
+        const searchTitle = '<%= searchTitle %>';
+        
+        if(searchTitle === '전체'){
+            window.location.href=`/notice_list?page=${pageNumber}`;
+            return;
+        }
+        window.location.href = `/notice_list?page=${pageNumber}&searchTitle=${encodeURIComponent(searchTitle)}`;
+    }
+
+    // 글쓰기 버튼
+    function NoticeAdd(){
+      window.location.href='/notice_list/add';
+      return;
+    }
+
+    // 상세보기
+    function NoticeDetail(noticeId){
+      window.location.href=`/notice_list/detail?noticeId=${noticeId}`;
+      return;
+    }
+</script>
 </body>
 
 </html>

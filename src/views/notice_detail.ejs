@@ -18,25 +18,64 @@
 
   <section>
     <div class="notice-details">
-      <h3>제목: 조금만 더 힘내자<!DOCTYPE html></h3>
+      <h3><%= list[0].title %></h3>
       <p class="detail-info">
-        작성자: <span>한유림</span> | 날짜: <span>2023-11-25</span>
+        <% const createDate = new Date(list[0].create_date); %>
+        <% const formattedDate = `${createDate.getFullYear()}. ${createDate.getMonth() + 1}. ${createDate.getDate()}`; %>
+        작성자: <span><%= list[0].author %></span> | 날짜: <span><%= formattedDate %></span>
       </p>
       <div class="content">
-        고웹 고웹 고웹
+        <%= list[0].content %>
       </div>
     </div>
 
-    <div class="button-container">
-      <button class="back-button" onclick="goToListPage()">목록으로</button>
-      <button class="edit-button" onclick="goToEditPage()">수정</button>
-      <button class="delete-button" onclick="confirmDelete()">삭제</button>
-    </div>
+      <div class="button-container">
+        <button class="back-button" onclick="NoticePage()">목록으로</button>
+        <% if (typeof user !== 'undefined' && user.is_superuser === 1){ %>
+          <button class="edit-button" onclick="EditNotice('<%= list[0].id %>')">수정</button>
+          <button class="delete-button" onclick="DeleteNotice('<%= list[0].id %>')">삭제</button>
+        <% } %>
+      </div>
 
     <footer>
         <p>© KU-HAE</p>
       </footer>
 
+    <script>
+      // 목록으로
+        function NoticePage(){
+          window.location.href='/notice_list';
+          return;
+        }
+
+        // 수정 버튼
+        function EditNotice(noticeId){
+            window.location.href = `/notice_list/edit?noticeId=${noticeId}`;
+        }
+
+        // 삭제하기
+        function DeleteNotice(noticeId) {
+            const xhr = new XMLHttpRequest();
+            
+            xhr.open('POST', '/notice_list/delete', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        // 결과 표시
+                        alert(response.message);
+                        window.location.href='/notice_list';
+                    } else {
+                        console.error('Error: ' + xhr.status);
+                    }
+                }
+            };
+            
+            xhr.send('noticeId=' + encodeURIComponent(noticeId));
+        }
+    </script>
 </body>
 
 </html>
