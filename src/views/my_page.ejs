@@ -71,18 +71,23 @@
 
             <div class="requests">
                 <h2>들어온 요청</h2>
-                <% if (requests.length > 0){ %>
-                    <% requests.forEach((item, index) => { %>
-                        <div class="request-item">
-                            <p><strong><%= index+1 %>: &nbsp; </strong><%= item.sender %>님이 '<%= item.list_title %>'에 참여를 요청하였습니다.</p>
-                            <div class="request-buttons">
-                                <button class="accept-request" onclick="acceptRequest()">ACCEPT</button>
-                                <button class="reject-request" onclick="rejectRequest('<%=item.id %>')">DENY</button>
+                <!-- 로그인 유저랑 해당 페이지의 유저가 같을 경우나 관리자인 경우에만 요청 표시 -->
+                <% if (user.user_id === userData[0].user_id || user.is_superuser === 1) { %>
+                    <% if (requests.length > 0){ %>
+                        <% requests.forEach((item, index) => { %>
+                            <div class="request-item">
+                                <p><strong><%= index+1 %>: &nbsp; </strong><%= item.sender %>님이 '<%= item.list_title %>'에 참여를 요청하였습니다.</p>
+                                <div class="request-buttons">
+                                    <button class="accept-request" onclick="acceptRequest('<%= item.id %>', '<%= item.sender %>')">수락</button>
+                                    <button class="reject-request" onclick="rejectRequest('<%=item.id %>')">거절</button>
+                                </div>
                             </div>
-                        </div>
-                    <% }); %>
+                        <% }); %>
+                    <% } else { %>
+                        요청이 없습니다.
+                    <% } %>
                 <% } else { %>
-                    <p>요청이 없습니다.</p>
+                    다른 유저의 요청 정보는 볼 수 없습니다.
                 <% } %>
             </div>
         </div>
@@ -212,9 +217,8 @@
         }
 
         // 요청 수락
-        function acceptRequest() {
-            const receiver = '';
-            const sender = '';
+        function acceptRequest(requestId, sender) {
+            const receiver = '<%= user.user_id %>';
             const xhr = new XMLHttpRequest();
                 
             xhr.open('POST', '/chat/acceptrequest', true);
@@ -225,6 +229,7 @@
                     if (xhr.status === 200) {
                         const response = JSON.parse(xhr.responseText);
                         // 완료 후 새로고침
+                        alert(response.message);
                         window.location.reload();
                     } else {
                         console.error('Error: ' + xhr.status);
@@ -233,7 +238,8 @@
             };
                 
             xhr.send('receiver=' + encodeURIComponent(receiver) +
-                    '&sender=' + encodeURIComponent(sender));
+                    '&sender=' + encodeURIComponent(sender) +
+                    '&requestId=' + encodeURIComponent(requestId));
         }
 
         // 요청 거절
