@@ -15,48 +15,89 @@
     <div class="container">
 
         <div class="profile-section">
-            <div class="profile-image">
-                <img src="/images/ku.png" alt="KU">
+            <div class="profile-image" onclick="openModal()">
+                <img src="<%= userData[0].profile_picture %>" alt="profile">
+            </div>
+
+            <!-- 프로필 이미지 모달 창-->
+            <div id="imageModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <div class="image-list">
+                        <img src="/images/ku.png" onclick="selectProfile('/images/ku.png')">
+                        <img src="/images/profile_ku1.png" onclick="selectProfile('/images/profile_ku1.png')">
+                        <img src="/images/profile_ku2.png" onclick="selectProfile('/images/profile_ku2.png')">
+                    </div>
+                </div>
             </div>
 
             <div class="my_page name">
-                <h2>사용자 이름</h2>
+                <h2><%= userData[0].user_id %></h2>
                 <div class="passion-style">
-                    열정도
+                    열정도 (<%= userData[0].passion_score %>%)
                 </div>
                 <div class="passion-meter">
-                    <div class="passion-meter-fill" style="width: 50%;"></div>
-                </div>
-                <h4>이메일 주소: user@example.com</h4>
+                    <div class="passion-meter-fill" style="width: <%= userData[0].passion_score %>%;"></div>
+                </div><br>
+                <button class="up-passion" onclick="upPassion('<%= userData[0].user_id %>')">업 버튼(디자인 수정 필요)</button>
+                <button class="down-passion" onclick="downPassion('<%= userData[0].user_id %>')">다운 버튼(디자인 수정 필요)</button>
+                <h4>이메일 주소: &nbsp; <%= userData[0].email %>@kku.ac.kr</h4>
             </div>
         </div>
 
+        <div>
+            <div class="search-container">
+                <input class="search-input" id="search-userId" type="text" placeholder="유저를 입력 해주세요.">
+                <button class="search-button" onclick="searchUser()">검색</button>
+            </div>
+            <% if (message === '존재하지 않는 유저입니다.'){ %>
+                <div class="message-red"><%= message %></div>
+            <% } %>
+        </div>
+
+        
+
         <div class="flex-container">
             <div class="my-listings">
-                <h2>나의 목록</h2>
-                <p><strong>(1)</strong>2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
-                <p><strong>(2)</strong> 창의적인 아이디어 공모전</p>
-                <p><strong>(2)</strong> 2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
-                <p><strong>(2)</strong>2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
-                <p><strong>(2)</strong>2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
-                <p><strong>(2)</strong>2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
-                <p><strong>(2)</strong>2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
-                <p><strong>(2)</strong>2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
-                <p><strong>(2)</strong>2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
-                <p><strong>(2)</strong>2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
-                <p><strong>(2)</strong>2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
-                <p><strong>(2)</strong>2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
-                <p><strong>(2)</strong>2023년 개최, 2080년 미래 한식 요리 공모전 2023년 개최, 2080년 미래 한식 요리 공모전</p>
+                <h2>나의 글 목록</h2>
+                <% if (lists.length > 0){ %>
+                    <% lists.forEach((item, index) => { %>
+                    <p><strong><%= index+1 %>: &nbsp; </strong><%= item.title %></p>
+                    <% }); %>
+                <% } else { %>
+                    글이 존재하지 않습니다.
+                <% } %>
             </div>
 
             <div class="requests">
                 <h2>들어온 요청</h2>
-                <p><strong>(1)</strong> PJH님이 '한식 요리 공모전'에 참여를 요청하였습니다.</p>
-                <p><strong>(2)</strong> HYL님이 '고급 웹프로그래밍 팀플 활동'에 참여를 요청하였습니다.</p>
+                <% if (requests.length > 0){ %>
+                    <% requests.forEach((item, index) => { %>
+                        <div class="request-item">
+                            <p><strong><%= index+1 %>: &nbsp; </strong><%= item.sender %>님이 '<%= item.list_title %>'에 참여를 요청하였습니다.</p>
+                            <div class="request-buttons">
+                                <button class="accept-request" onclick="acceptRequest()">수락(디자인 수정 필요)</button>
+                                <button class="reject-request" onclick="rejectRequest('<%=item.id %>')">거절(디자인 수정 필요)</button>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <p>요청이 없습니다.</p>
+                <% } %>
             </div>
         </div>
 
-        <button class="change-password-button">비밀번호 변경</button>
+        <% if (user.user_id === userData[0].user_id){ %>
+            <div class="password-change">
+                <h2>비밀번호 변경</h2>
+                <input type="password" id="currentPassword" name="currentPassword" placeholder="기존 비밀번호"><br><br>
+                <button class="change-password-button" onclick="confirmPassword()">비밀번호 확인</button><br><br>
+
+                <input type="password" id="newPassword" name="newPassword" placeholder="새로운 비밀번호" style="display: none;"><br><br>
+                <input type="password" id="confirmNewPassword" name="confirmNewPassword" placeholder="새로운 비밀번호 확인" style="display: none;"><br><br>
+                <button class="change-password-button" id="confirmNewPasswordButton" onclick="changePassword()" style="display: none;">비밀번호 변경</button>
+            </div>
+        <% } %>
 
     </div>
 
@@ -66,6 +107,225 @@
         </div>
     </footer>
 
+    <script>
+        // 모달 열기
+        function openModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'block';
+        }
+
+        // 모달 닫기
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+        }
+
+        // 프로필 변경
+        function selectProfile(selectedProfile) {
+
+            const xhr = new XMLHttpRequest();
+                
+            xhr.open('POST', '/my_page/updateprofile', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        // 변경 완료 후 새로고침
+                        window.location.reload();
+                    } else {
+                        console.error('Error: ' + xhr.status);
+                    }
+                }
+            };
+                
+            xhr.send('selectedProfile=' + encodeURIComponent(selectedProfile));
+        }
+
+        // 유저 검색
+        function searchUser(){
+            const userId = document.getElementById('search-userId').value;
+            window.location.href=`/my_page?userId=${userId}`
+        }
+
+        // 열정도 증가
+        function upPassion(receiver) {
+            '<% if( typeof user !== "undefined") { %>'
+                const sender = '<%= user.user_id %>';
+
+                const xhr = new XMLHttpRequest();
+            
+                xhr.open('POST', '/my_page/uppassion', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            const response = JSON.parse(xhr.responseText);
+                            // 결과 표시
+                            alert(response.message);
+                            window.location.reload();
+                        } else {
+                            console.error('Error: ' + xhr.status);
+                        }
+                    }
+                };
+                
+                xhr.send('sender=' + encodeURIComponent(sender) + 
+                            '&receiver=' + encodeURIComponent(receiver));
+            '<% } else { %>'
+                    alert('로그인 해주세요.');
+                    return;
+            '<% } %>'
+        }
+
+        // 열정도 증가
+        function downPassion(receiver) {
+            '<% if( typeof user !== "undefined") { %>'
+                const sender = '<%= user.user_id %>';
+
+                const xhr = new XMLHttpRequest();
+            
+                xhr.open('POST', '/my_page/downpassion', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            const response = JSON.parse(xhr.responseText);
+                            // 결과 표시
+                            alert(response.message);
+                            window.location.reload();
+                        } else {
+                            console.error('Error: ' + xhr.status);
+                        }
+                    }
+                };
+                
+                xhr.send('sender=' + encodeURIComponent(sender) + 
+                            '&receiver=' + encodeURIComponent(receiver));
+            '<% } else { %>'
+                    alert('로그인 해주세요.');
+                    return;
+            '<% } %>'
+        }
+
+        // 요청 수락
+        function acceptRequest() {
+            const receiver = '';
+            const sender = '';
+            const xhr = new XMLHttpRequest();
+                
+            xhr.open('POST', '/chat/acceptrequest', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        // 완료 후 새로고침
+                        window.location.reload();
+                    } else {
+                        console.error('Error: ' + xhr.status);
+                    }
+                }
+            };
+                
+            xhr.send('receiver=' + encodeURIComponent(receiver) +
+                    '&sender=' + encodeURIComponent(sender));
+        }
+
+        // 요청 거절
+        function rejectRequest(requestId) {
+            const xhr = new XMLHttpRequest();
+                
+            xhr.open('POST', '/chat/rejectrequest', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        // 완료 후 새로고침
+                        window.location.reload();
+                    } else {
+                        console.error('Error: ' + xhr.status);
+                    }
+                }
+            };
+                
+            xhr.send('requestId=' + encodeURIComponent(requestId));
+        }
+
+        // 기존 비밀번호 확인
+        function confirmPassword() {
+            const password = document.getElementById('currentPassword').value;
+            const newPasswordField = document.getElementById('newPassword');
+            const confirmNewPasswordField = document.getElementById('confirmNewPassword');
+            const confirmNewPasswordButtonField = document.getElementById('confirmNewPasswordButton');
+            
+            const xhr = new XMLHttpRequest();
+            
+            xhr.open('POST', '/my_page/confirmpassword', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        const response = JSON.parse(xhr.responseText);
+                        // 요청 결과 표시
+                        alert(response.PasswordMessage);
+                        // 비밀번호가 일치하면 새로운 비밀번호 입력창을 보여줌
+                        if (response.isOK) {
+                            newPasswordField.style.display = 'block';
+                            confirmNewPasswordField.style.display = 'block';
+                            confirmNewPasswordButtonField.style.display = 'block';
+                        } else {
+                            newPasswordField.style.display = 'none';
+                            confirmNewPasswordField.style.display = 'none';
+                            confirmNewPasswordButtonField.style.display = 'none';                            
+                        }
+                    } else {
+                        console.error('Error: ' + xhr.status);
+                    }
+                }
+            };
+            
+            xhr.send('password=' + encodeURIComponent(password));
+        }
+
+        // 비밀번호 변경
+        function changePassword() {
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
+            if (newPassword === confirmNewPassword){
+                const xhr = new XMLHttpRequest();
+                
+                xhr.open('POST', '/my_page/changepassword', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            const response = JSON.parse(xhr.responseText);
+                            // 요청 결과 표시
+                            alert(response.PasswordMessage);
+                            // 비밀번호가 변경 후 다시 입력창 가림
+                            window.location.reload();
+                        } else {
+                            console.error('Error: ' + xhr.status);
+                        }
+                    }
+                };
+                
+                xhr.send('newPassword=' + encodeURIComponent(newPassword));
+            } else {
+                alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+            }
+        }
+    </script>
 </body>
 
 </html>
