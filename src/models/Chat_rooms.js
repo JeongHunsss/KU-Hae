@@ -4,7 +4,7 @@ class Chat_rooms {
     // 채팅방 생성
   createRoom(roomData, callback) {
     const query = 'INSERT INTO chat_rooms SET ?';
-    connection.query(query, requestData, callback);
+    connection.query(query, roomData, callback);
   }
 
   // 채팅방 제거
