@@ -25,7 +25,7 @@ exports.PageOpen = (req, res) => {
             console.error('글 정보 가져오기 오류:', err);
             res.status(500).json({ error: '글 정보 가져오기 실패' });
           } else {
-            res.render('ku_list', {lists, user: req.session.user, totalPages, category: '전체'});
+            res.render('ku_list', {lists, user: req.session.user, rooms: req.session.rooms, totalPages, category: '전체'});
           }
         });
       }
@@ -45,7 +45,7 @@ exports.PageOpen = (req, res) => {
             console.error('글 정보 가져오기 오류:', err);
             res.status(500).json({ error: '글 정보 가져오기 실패' });
           } else {
-            res.render('ku_list', {lists, user: req.session.user, totalPages, category});
+            res.render('ku_list', {lists, user: req.session.user, rooms: req.session.rooms, totalPages, category});
           }
         });
       }
@@ -85,7 +85,7 @@ exports.EditListPage = (req, res) => {
       console.error('글 정보 가져오기 오류:', err);
       res.status(500).json({ error: '글 정보 가져오기 실패' });
     } else {
-      res.render('ku_add', {list, user: req.session.user});
+      res.render('ku_add', {list, user: req.session.user, rooms: req.session.rooms});
     }
   });
 };

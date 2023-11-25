@@ -1,6 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const http = require('http');
 
 const signupRouter = require(__dirname + '/src/routes/signup');
 const loginRouter = require(__dirname + '/src/routes/login');
@@ -15,7 +16,12 @@ const qnaRouter = require(__dirname + '/src/routes/qna');
 
 const config = require(__dirname + '/config/SessionConfig');
 
+const chatController = require('./src/controllers/ChatController');
+
+const crawler = require(__dirname + '/static/js/crawler');
+
 const app = express();
+const server = http.createServer(app);
 
 app.use(express.static(__dirname + '/static'));
 app.set('view engine', 'ejs');
@@ -31,6 +37,8 @@ app.use(session({
 app.use(bodyParser.json()); // JSON 파싱을 위한 설정
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Express 애플리케이션을 Socket.io 서버와 연결
+chatController.initSocket(server);
 
 // 라우터 등록
 app.use('/signup', signupRouter);
@@ -50,6 +58,9 @@ app.get('/', (req, res) => {
   res.redirect('/main');
 });
 
+
+// 서버 시작전에 공모전 크롤링 (서버에 무리를 주지 않기 위해 1번 1페이지만)
+crawler.crawling();
 
 // 서버 시작
 const port = 3000;

@@ -1,6 +1,6 @@
 const connection = require('../../config/DBconfig');
 
-class User {
+class Chat_request {
     // 요청 생성
   createRequest(requestData, callback) {
     const query = 'INSERT INTO chat_request SET ?';
@@ -25,4 +25,4 @@ class User {
   }
 }
 
-module.exports = User;
+module.exports = Chat_request;

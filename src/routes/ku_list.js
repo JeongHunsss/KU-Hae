@@ -6,7 +6,7 @@ const ku_listController = require('../controllers/KU_listController');
 router.get('/', ku_listController.PageOpen);
 
 router.get('/add', (req, res) => {
-  res.render('ku_add', {user: req.session.user});
+  res.render('ku_add', {user: req.session.user, rooms: req.session.rooms});
 });
 router.get('/edit', ku_listController.EditListPage);
 

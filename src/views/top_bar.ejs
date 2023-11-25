@@ -53,15 +53,13 @@
     <div id="sidebar">
       <h3>채팅 목록</h3>
       <ul id="chat-list">
-        <li class="chat-item" onclick="showChatWindow('friend1')">친구 1</li>
-        <li class="chat-item" onclick="showChatWindow('friend2')">친구 2</li>
-        <li class="chat-item" onclick="showChatWindow('friend3')">친구 3</li>
-        <li class="chat-item" onclick="showChatWindow('friend4')">친구 4</li>
-        <li class="chat-item" onclick="showChatWindow('friend5')">친구 5</li>
-        <li class="chat-item" onclick="showChatWindow('friend6')">친구 6</li>
-        <li class="chat-item" onclick="showChatWindow('friend7')">친구 7</li>
-        <li class="chat-item" onclick="showChatWindow('friend8')">친구 8</li>
-        <li class="chat-item" onclick="showChatWindow('friend9')">친구 9</li>
+        <% if (typeof rooms !== 'undefined') { %>
+          <% rooms.forEach((item, index) => { %>
+            <li class="chat-item" onclick="showChatWindow('friend1')"><%= item.room_id %>번 채팅방</li>
+          <% }); %>
+        <% } else { %>
+          <li class="chat-item">채팅방이 없습니다.</li>
+        <% } %>
       </ul>
     </div>
 
