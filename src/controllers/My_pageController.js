@@ -28,7 +28,7 @@ exports.PageOpen = (req, res) => {
                                 console.error('요청 불러오기 오류:', err);
                                 res.status(500).json({ error: '요청 불러오기 오류' });
                             } else {
-                                res.render('my_page', {lists, requests, userData, user: req.session.user, message: ''});
+                                res.render('my_page', {lists, requests, userData, user: req.session.user, rooms: req.session.rooms, message: ''});
                             }
                         });
                     }
@@ -50,7 +50,7 @@ exports.PageOpen = (req, res) => {
                                         console.error('요청 불러오기 오류:', err);
                                         res.status(500).json({ error: '요청 불러오기 오류' });
                                     } else {
-                                        res.render('my_page', {lists, requests, userData, user: req.session.user, message: '존재하지 않는 유저입니다.'});
+                                        res.render('my_page', {lists, requests, userData, user: req.session.user, rooms: req.session.rooms, message: '존재하지 않는 유저입니다.'});
                                     }
                                 });
                             }
