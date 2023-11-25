@@ -53,7 +53,7 @@
     <div id="sidebar">
       <h3>채팅 목록</h3>
       <ul id="chat-list">
-        <% if (typeof rooms !== 'undefined') { %>
+        <% if ( typeof rooms !== 'undefined' && rooms.length > 0 ) { %>
           <% rooms.forEach((item, index) => { %>
             <li class="chat-item" onclick="showChatWindow('friend1')"><%= item.room_id %>번 채팅방</li>
           <% }); %>
