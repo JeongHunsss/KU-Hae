@@ -76,7 +76,7 @@
                     <% if (requests.length > 0){ %>
                         <% requests.forEach((item, index) => { %>
                             <div class="request-item">
-                                <p><strong><%= index+1 %>: &nbsp; </strong><%= item.sender %>님이 '<%= item.list_title %>'에 참여를 요청하였습니다.</p>
+                                <p><strong><%= index+1 %>: &nbsp; </strong>'<%= item.sender %>'님이 '<%= item.list_title %>'에 참여를 요청하였습니다.</p>
                                 <div class="request-buttons">
                                     <button class="accept-request" onclick="acceptRequest('<%= item.id %>', '<%= item.sender %>')">수락</button>
                                     <button class="reject-request" onclick="rejectRequest('<%=item.id %>')">거절</button>
