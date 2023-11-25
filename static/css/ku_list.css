@@ -17,7 +17,7 @@ header {
     font-size: 1.0rem;
 }
 
-.search-button {
+.search-button{
     background-color: #646262;
     color: white;
     border: 1px solid #646262;
@@ -26,7 +26,17 @@ header {
     cursor: pointer;
 }
 
-.search-button:hover {
+.search-reported-button {
+    background-color: #f01414;
+    color: white;
+    border: 1px solid #646262;
+    border-radius: 0 5px 5px 0;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.search-button:hover,
+.search-reported-button:hover {
     background-color: #4c5baf;
 }
 
