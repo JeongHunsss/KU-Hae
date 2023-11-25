@@ -36,8 +36,8 @@
                     <h4>[<%= item.is_Online %>] [<%= item.category %>]</h4>
                 </div>
                
-                <h4><%= item.content %></h5>
-                    <button onclick="matching('<%= item.author %>', '<%= item.title %>')" class="matching">매칭하기</button>
+                <h4><%= item.content %></h4>
+                <button onclick="matching('<%= item.author %>', '<%= item.title %>')" class="matching">매칭하기</button>
                 <button onclick="upPassion('<%= item.author %>')" class="heart-icon">&#10084;</button>
                 <button onclick="reportList(<%= item.id %>)" class="report-button">🚨</button>
             
