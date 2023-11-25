@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.render('contest_list', {user: req.session.user, rooms: req.session.rooms});
-});
+const contestController = require('../controllers/ContestController');
+
+router.get('/', contestController.PageOpen);
 
 router.get('/detail', (req, res) => {
   res.render('contest_detail', {user: req.session.user, rooms: req.session.rooms});
