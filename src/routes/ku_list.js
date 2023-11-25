@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 const ku_listController = require('../controllers/KU_listController');
-const userController = require('../controllers/UserController');
 
 router.get('/', ku_listController.PageOpen);
 
@@ -15,6 +14,5 @@ router.post('/report', ku_listController.ReportList);
 router.post('/add', ku_listController.AddList);
 router.post('/edit', ku_listController.EditList);
 router.post('/delete', ku_listController.DeleteList);
-router.post('/uppassion', userController.UpPassion);
 
   module.exports = router;

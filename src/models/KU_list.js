@@ -41,6 +41,12 @@ class KU_list {
     connection.query(query, [category], callback);
   }
 
+  // 특정 유저 글 가져오기
+  getListByAuthor(userId, callback) {
+    const query = 'SELECT * FROM ku_list WHERE author = ? ORDER BY id DESC';
+    connection.query(query, [userId], callback);
+  }
+
   // 신고 수 증가
   increaseReportCount(postId, callback) {
     const query = 'UPDATE ku_list SET report = report + 1 WHERE id = ?';
