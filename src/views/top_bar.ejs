@@ -55,7 +55,11 @@
       <ul id="chat-list">
         <% if ( typeof rooms !== 'undefined' && rooms.length > 0 ) { %>
           <% rooms.forEach((item, index) => { %>
-            <li class="chat-item" onclick="showChatWindow('friend1')"><%= item.room_id %>번 채팅방</li>
+            <% if (item.receiver === user.user_id) { %>
+              <li class="chat-item" onclick="showChatWindow('friend1')">'<%= item.sender %>'와의 채팅방</li>
+            <% } else { %>
+              <li class="chat-item" onclick="showChatWindow('friend1')">'<%= item.receiver %>'와의 채팅방</li>
+            <% } %>
           <% }); %>
         <% } else { %>
           <li class="chat-item">채팅방이 없습니다.</li>
