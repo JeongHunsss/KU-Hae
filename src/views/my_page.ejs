@@ -59,7 +59,7 @@
 
         <div class="flex-container">
             <div class="my-listings">
-                <h2>나의 글 목록</h2>
+                <h2><%= userData[0].user_id %>의 글 목록</h2>
                 <% if (lists.length > 0){ %>
                     <% lists.forEach((item, index) => { %>
                     <p><strong><%= index+1 %>: &nbsp; </strong><%= item.title %></p>
