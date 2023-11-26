@@ -30,7 +30,7 @@ exports.PageOpen = (req, res) => {
         });
       }
     });
-  } else {  //검색O (특정 카테고리)
+  } else {  //검색O (특정 제목)
     contest.getContestByTitle(searchTitle, (err, result) => {
       if (err) {
         console.error('리스트 불러오기 오류:', err);
