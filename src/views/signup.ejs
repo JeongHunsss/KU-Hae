@@ -14,11 +14,11 @@
                 <label for="username">UserID</label>
                 <div id="duplicationResult"></div>
                 <div class="input-with-button">
-                        <input type="text" id="username" name="username" pattern="[a-zA-Z0-9]{5,15}">
+                        <input type="text" id="username" name="username" pattern="[a-zA-Z0-9]" maxlength="15">
                         <button class="small-button" type="button"  onclick="checkDuplicate()">Check</button>
                 </div>
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" pattern="[a-zA-Z0-9!@#$%^&*()\-_=+{};:,<.>]{5,20}">
+                <input type="password" id="password" name="password" pattern="[a-zA-Z0-9!@#$%^&*()\-_=+{};:,<.>]" maxlength="20">
                 <label for="password-confirm">Confirm Password</label>
                 <input type="password" id="password-confirm" name="password-confirm">
                 <label for="email">Email</label>
