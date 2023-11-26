@@ -15,11 +15,13 @@
     color: #000000;
     padding: 10px;
     text-align: center;
-    margin-top: 10px;
+    margin-top: 0px;
     height: 110px;
   }
 
   section {
+    position: relative;
+    top: -50px;
     margin: 10px;
     padding-top: 20px;
     display: flex;
@@ -53,10 +55,12 @@
   }
 
   .content {
+    width: 100%;
     color: #333;
     text-align: left;
     line-height: 1.5;
     margin-bottom: 20px;
+    word-wrap: break-word;
   }
 
   .button-container {
@@ -78,9 +82,12 @@
   }
 
   .back-button:hover,
-  .edit-button:hover,
-  .delete-button:hover {
+  .edit-button:hover {
     background-color: #4c5baf;
+  }
+
+  .delete-button:hover {
+    background-color: rgb(229, 28, 28);
   }
 
   .back-button:active,

@@ -101,8 +101,10 @@ footer {
 .button-container {
   display: flex;
   justify-content: flex-end;
-  margin-right: 80px;
+  margin-right: 200px;
   margin-top: 10px;
+  position:relative;
+  bottom: -700px;
 }
 
 .write-button {
