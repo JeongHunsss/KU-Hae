@@ -15,15 +15,14 @@
     <div class="titlecontainer">
       <h2>QnA KU하기</h2>
     </div>
-    <form action="submit_post.php" method="post">
       <label for="title">제목</label>
-      <input type="text" id="title" name="title" required>
+      <input type="text" id="title" name="title" maxlength="100" required>
 
       <label for="content">내용</label>
-      <textarea id="content" name="content" rows="8" required></textarea>
+      <textarea id="content" name="content" rows="22" maxlength="2000" required></textarea>
 
       <div class="button-container">
-        <button type="submit">글쓰기</button>
+        <button type="submit" onclick="Add()">글쓰기</button>
       </div>
     </form>
   </div>
@@ -32,5 +31,34 @@
     <p>© KU-HAE</p>
   </footer>
 
+  <script>
+        // 글쓰기
+        function Add() {
+          const title = document.getElementById('title').value;
+          const content = document.getElementById('content').value;
+          const author = '<%= user.user_id %>';
+          const xhr = new XMLHttpRequest();
+          
+          xhr.open('POST', '/qna/addqestion', true);
+          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  
+          xhr.onreadystatechange = function() {
+              if (xhr.readyState === XMLHttpRequest.DONE) {
+                  if (xhr.status === 200) {
+                      const response = JSON.parse(xhr.responseText);
+                      // 글쓰기 결과
+                      alert(response.message);
+                      window.location.href='/qna';
+                  } else {
+                      console.error('Error: ' + xhr.status);
+                  }
+              }
+          };
+          
+          xhr.send('title=' + encodeURIComponent(title) + 
+                      '&content=' + encodeURIComponent(content) +
+                      '&author=' + encodeURIComponent(author));
+      }
+  </script>
 </body>
 </html>
