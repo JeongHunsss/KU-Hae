@@ -33,7 +33,6 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
-
 app.use(bodyParser.json()); // JSON 파싱을 위한 설정
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -64,6 +63,4 @@ crawler.crawling();
 
 // 서버 시작
 const port = 3000;
-app.listen(port, () => {
-  console.log(`서버가 ${port} 포트에서 실행 중`);
-});
+server.listen(port, () => console.log(`app listening on port ${port}!`));
