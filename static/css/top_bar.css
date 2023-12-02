@@ -110,6 +110,7 @@
   #chat-window {
     display: none;
     position: fixed;
+    overflow: hidden;
     top: 27%;
     left: 50%;
     transform: translateX(-50%);
@@ -121,7 +122,6 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     max-width: 1000px;
     max-height: 1000px;
-    overflow: auto;
     z-index: 2;
   }
 
@@ -144,8 +144,8 @@
 
   #chat-box {
   width: 90%;
-  overflow: hidden;
   margin-top: 10px;
+  overflow: scroll;
   display: flex;
   flex-direction: column;
   padding: 60px;
@@ -158,6 +158,10 @@
   display: flex; /* 추가 */
   flex-direction: column; /* 추가 */
 }
+  .chat-messages{
+    max-height: 90%;
+    overflow: scroll;
+  }
 
   .chat-bubble {
     display: flex;
@@ -188,6 +192,8 @@
     max-height: 100px;
     max-width: 50%;
     margin-right:20px;
+    margin-left: auto; /* 말풍선이 왼쪽에 딱 붙지 않도록 설정 */
+    margin-bottom: 10px; /* 말풍선 사이의 간격 조정 */
   }
 
   .friend-message {
@@ -203,27 +209,29 @@
  #message-input {
   width: 80%;
   padding: 1.6%;
-  margin-left: 6px;
+  margin-left: 20px;
   margin-bottom: 6px;
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-right: 1px;
   resize: both;
   display: inline-block;
+  position: fixed;
+  bottom: 5px;
 }
 
 #send-button {
-  width: 8%;
-  height: 12%;
+  width: 9%;
+  height: 10%;
   background-color: #3498db;
   color: white;
   padding: 13px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  top: 335px;
-  left: 800px;
-  position: absolute;
+  bottom: 10px;
+  left: 860px;
+  position: fixed;
   align-items: flex-end;
 
 }
@@ -291,7 +299,7 @@
   font-size: 0.6em;
   text-align: flex-end;
   position: absolute;
-  bottom: 18px; 
+  top: 18px; 
   right: 15px; 
 }
 
