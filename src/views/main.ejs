@@ -20,21 +20,21 @@
 
     <div class="container">
         <div class="chat-container">
-            <div class="message">
+            <div class="first-message">
                 <div class="left-balloon">
                     <h2>창의성을 펼쳐보세요</h2>
                     <p>최고의 아이디어와 팀원들을 만나 KU해에서 여러분만의 프로젝트를 시작하세요. 혁신적인 아이디어와 창의력이 무한한 세계를 열어갑니다. 지금 시작하세요!</p>
                 </div>
             </div>
             
-            <div class="message">
+            <div class="first-message">
                 <div class="right-balloon">
                     <h3>열정과 협업의 만남</h3>
                     <p>KU해에서는 열정적인 팀원들과의 만남이 여러분의 아이디어를 현실로 만들어갑니다. 협업의 힘으로 더 큰 성과를 이룰 수 있습니다. 함께 혁신의 여정을 떠나보세요!</p>
                 </div>
             </div>
             
-            <div class="message">
+            <div class="first-message">
                 <div class="left-balloon">
                     <h2>미래를 함께 디자인</h2>
                     <p>미래를 함께 디자인하고 싶다면 KU해에서 당신의 역량을 펼쳐보세요. 풍부한 경험과 함께 더 나은 세상을 만들어갈 수 있습니다. 지금 참여하세요!</p>
@@ -86,6 +86,22 @@
     <script>
         document.addEventListener('scroll', function() {
             var messages = document.querySelectorAll('.message');
+            
+            messages.forEach(function(message, index) {
+                var boundingBox = message.getBoundingClientRect();
+
+                if (boundingBox.top < window.innerHeight && boundingBox.bottom >= 0) {
+                    // 화면에 보일 때 scroll-show 클래스 추가
+                    message.classList.add('scroll-show');
+                } else {
+                    // 화면에 보이지 않을 때 scroll-show 클래스 제거
+                    message.classList.remove('scroll-show');
+                }
+            });
+        });
+
+        document.addEventListener('scroll', function() {
+            var messages = document.querySelectorAll('.first-message');
             
             messages.forEach(function(message, index) {
                 var boundingBox = message.getBoundingClientRect();
