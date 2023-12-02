@@ -26,7 +26,7 @@
         <a href="/qna">QnA</a>
         <% if (typeof user !== 'undefined') { %>
           <% if ( user.is_superuser === 1){ %>
-            <a href="/report_list">신고받은 글</a>
+            <a href="/report_list">신고 받은 글</a>
           <% } %>
         <% } %>
       </div>
@@ -56,9 +56,9 @@
         <% if ( typeof rooms !== 'undefined' && rooms.length > 0 ) { %>
           <% rooms.forEach((item, index) => { %>
             <% if (item.receiver === user.user_id) { %>
-              <li class="chat-item" onclick="showChatWindow('friend1')">'<%= item.sender %>'와의 채팅방</li>
+              <li class="chat-item" id="<%= item.room_id %>" onclick="onClickJoinChat('<%= item.room_id %>')">'<%= item.sender %>'와의 채팅방</li>
             <% } else { %>
-              <li class="chat-item" onclick="showChatWindow('friend1')">'<%= item.receiver %>'와의 채팅방</li>
+              <li class="chat-item" id="<%= item.room_id %>" onclick="onClickJoinChat('<%= item.room_id %>')">'<%= item.receiver %>'와의 채팅방</li>
             <% } %>
           <% }); %>
         <% } else { %>
@@ -68,35 +68,98 @@
       </ul>
     </div>
 
-    <div id="chat-window">
+
+    <div id="chat-window" style="display: none;">
       <div id="close-button" onclick="closeChatWindow()">✖</div>
 
       <div id="chat-window-title">채팅</div>
 
-      <button id="exit-chat-button" onclick="exitChatRoom()">채팅방 나가기</button>
-
       <div id="chat-box">
-        <div class="chat-bubble user-message">
-          <p>안녕하세요!</p>
-        </div>
-        <div class="chat-bubble friend-message">
-          <p>안녕하세요! 어떻게 지내세요?</p>
-        </div>
-        <div class="chat-bubble user-message">
-          <p>잘 지내고 있어요.</p>
-        </div>
-        <div class="chat-bubble friend-message">
-          <p>잘 지내고 있어서 다행이에요.</p>
-        </div>
-
+        <!-- 채팅 내용을 표시하는 부분 -->
+        <div id="chat-messages" class="chat-messages"></div>
         
-        <textarea id="message-input" placeholder="메시지를 입력하세요"></textarea>
-        <button id="send-button" onclick="sendMessage()">전송</button>
       </div>
+      <input id="message-input" placeholder="메시지를 입력하세요"></input>
+      <button id="send-button">전송</button>
     </div>
-  </div>
 
+
+
+  <script src="https://cdn.socket.io/4.3.1/socket.io.js"></script>
   <script>
+    function sendMessage(roomId, message) {
+      var socket = io.connect();
+
+      '<% if(typeof user !== "undefined") { %>'
+      socket.emit('message', { room: roomId, message: message, sender: '<%= user.user_id %>' });
+      '<% } %>'
+    }
+
+    function onClickJoinChat(roomId) {
+      var socket = io.connect();
+      '<% if( typeof user !== "undefined") { %>'
+        const user = '<%= user.user_id %>';
+      '<% } %>'
+
+      const chatWindow = document.getElementById('chat-window');
+      chatWindow.style.display = 'block';
+      
+      const xhr = new XMLHttpRequest();
+                
+      xhr.open('POST', '/chat/getchat', true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+      xhr.onreadystatechange = function() {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+              if (xhr.status === 200) {
+                  const response = JSON.parse(xhr.responseText);
+                  const chatMessagesDiv = document.getElementById('chat-messages');
+
+                  response.messages.forEach((item, index) => {
+                    const messageBubble = document.createElement('div');
+                    messageBubble.classList.add('chat-bubble');
+                    if(item.sender == user) {
+                      messageBubble.classList.add('user-message');
+                    } else {
+                      messageBubble.classList.add('friend-message');
+                    }
+                    messageBubble.innerHTML = `<p>${item.text}</p>`;
+                    chatMessagesDiv.appendChild(messageBubble);
+                  });
+              } else {
+                  console.error('Error: ' + xhr.status);
+              }
+          }
+      };
+            
+      xhr.send('roomId=' + encodeURIComponent(roomId));
+
+      socket.emit('joinRoom', roomId);
+
+      socket.on('message', (data) => {
+        console.log("전달 받음");
+        const chatMessagesDiv = document.getElementById('chat-messages');
+        const messageBubble = document.createElement('div');
+        messageBubble.classList.add('chat-bubble');
+        if(data.sender == user) {
+            messageBubble.classList.add('user-message');
+        } else {
+            messageBubble.classList.add('friend-message');
+        }
+        messageBubble.innerHTML = `<p>${data.message}</p>`;
+        chatMessagesDiv.appendChild(messageBubble);
+      });
+
+      // sendMessage 함수 호출을 클릭 이벤트로 이동시킴
+      const sendButton = document.getElementById('send-button');
+      sendButton.addEventListener('click', function() {
+        const messageInput = document.getElementById('message-input');
+        const message = messageInput.value;
+        sendMessage(roomId, message);
+        messageInput.value = '';
+      });
+    }
+
     window.addEventListener('DOMContentLoaded', (event) => {
       adjustUserPosition();
       window.addEventListener('resize', adjustUserPosition);
@@ -113,19 +176,13 @@
 
     var isChatListOpen = false;
 
-    function showChatWindow(friend) {
-      var chatWindow = document.getElementById('chat-window');
-
-      chatWindow.style.display = 'block';
-
-    }
-
     function closeChatWindow() {
       var chatWindow = document.getElementById('chat-window');
       chatWindow.style.display = 'none';
-    }
-
-    function sendMessage() {
+      var chatMessagesDiv = document.getElementById('chat-messages');
+      while (chatMessagesDiv.firstChild) {
+        chatMessagesDiv.removeChild(chatMessagesDiv.firstChild);
+      }
     }
 
     function toggleChatList() {
@@ -137,19 +194,6 @@
       } else {
         sidebar.style.display = 'none';
       }
-
-      $(function () {
-      $("#chat-window.resizable").resizable({
-        handles: "se", 
-        minHeight: 200,
-        minWidth: 300, 
-      });
-
-      $(".draggable").draggable({
-        handle: ".chat-bubble.user-message", 
-      });
-    });
-
     }
   </script>
 </body>
