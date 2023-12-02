@@ -10,5 +10,6 @@ router.get('/', (req, res) => {
 router.post('/createrequest', chatController.createRequest);
 router.post('/acceptrequest', chatController.acceptRequest);
 router.post('/rejectrequest', chatController.rejectRequest);
+router.post('/getchat', chatController.getChatting);
 
 module.exports = router;
