@@ -26,7 +26,7 @@
                 작성자: <span><%= question[0].author %></span> | 날짜: <span><%= formattedDate %></span>
             </p>
             <div class="content">
-                <%= question[0].content %>
+                <%- question[0].content.replace(/\n/g, "<br>"); %>
             </div>
             <div class="button-container">
                 <button class="back-button" onclick="QnAPage()">목록으로</button>
@@ -59,7 +59,7 @@
                 <% if ( typeof answer !== 'undefined' && answer.length > 0) { %>
                     <h3>작성자: <%= answer[0].author %></h3>
                     <div class="content">
-                        <%= answer[0].content %>
+                        <%- answer[0].content.replace(/\n/g, "<br>"); %>
                     </div>
                 <% } else { %>
                     <h3>답변이 없습니다.</h3>
