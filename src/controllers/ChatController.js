@@ -1,5 +1,6 @@
 const Chat_request = require('../models/Chat_request');
 const Chat_rooms = require('../models/Chat_rooms');
+const Chat_messages = require('../models/Chat_messages');
 
 const socketIO = require('socket.io');
 
@@ -79,22 +80,52 @@ exports.rejectRequest = (req, res) => {
 // 서버를 Express 애플리케이션과 연결
 exports.initSocket = (server) => {
   const io = socketIO(server);
+  const chat_messages = new Chat_messages();
 
   io.on('connection', (socket) => {
-    console.log('새로운 사용자가 접속했습니다.');
+    console.log('사용자가 접속했습니다.');
 
     socket.on('joinRoom', (roomId) => {
-      socket.join(roomId); // 클라이언트를 해당 방에 참여시킴
+      socket.join(roomId);
       console.log(`사용자가 ${roomId} 방에 참여했습니다.`);
     });
 
     socket.on('message', (data) => {
       console.log('받은 메시지:', data);
-      io.to(data.room).emit('message', data.message); // 특정 방에만 메시지 전송
+      
+      const Data = {
+        room_id: data.room,
+        sender: data.sender,
+        text: data.message,
+      };
+
+      io.to(data.room).emit('message', {message: data.message, sender: data.sender});
+      chat_messages.createMessages(Data, (err, result) => {
+        if (err) {
+          console.error('메시지 저장 실패:', err);
+        } else {
+          console.log('메시지 저장 성공');
+        }
+      });
     });
 
     socket.on('disconnect', () => {
       console.log('사용자가 나갔습니다.');
     });
   });
-}
+};
+
+exports.getChatting = (req, res) => {
+  const chat_messages = new Chat_messages();
+  const roomId = req.body.roomId;
+
+  chat_messages.getMessagesByroomId(roomId, (err, result) => {
+    if (err) {
+      console.error('리스트 불러오기 오류:', err);
+      res.status(500).json({ error: '리스트 불러오기 오류' });
+    } else {
+      console.log(result);
+      res.status(200).json({messages: result, roomId});
+    }
+  });
+};
