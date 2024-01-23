@@ -7,4 +7,4 @@
 --------------------------------------------
 이메일 인증을 위해 네이버 SMTP 설정을 해줘야함 - SMTP 사용 및 애플리케이션 비밀번호 발급
 
-사용 모듈: express, express-session, mysql2, ejs, bcrypt, cheerio, nodemailer, socket.io
+사용 모듈: express, express-session, mysql2, ejs, axios, bcrypt, cheerio, nodemailer, socket.io
